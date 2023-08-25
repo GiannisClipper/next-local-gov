@@ -11,3 +11,21 @@ h2 {
     padding: .5rem;
 }
 
+.tile {
+    display: inline-block;
+    margin: 1em;
+    width: 300px;
+    /* padding: .5rem; */
+    background-color: lightsteelblue;
+}
+
+.tile .title {
+    padding: .125em;
+    background-color: steelblue;
+    color: white;
+    text-align: center;
+}
+
+.tile .map {
+    padding: .125em 0;
+}
