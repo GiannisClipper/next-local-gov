@@ -1,0 +1,13 @@
+body {
+    background-color: linen;
+    color: steelblue;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 0;
+}
+
+h2 {
+    display: inline-block;
+    border: 1px solid lightgray;
+    padding: .5rem;
+}
+
