@@ -75,6 +75,30 @@ Nomoi.prototype.read = function() {
     return this;
 }
 
+// specific child class
+
+function Dhmoi( csvFilename, topojsonFilename ) {
+    Collection.call( this, csvFilename, topojsonFilename );
+}
+
+Dhmoi.prototype = new Collection();
+
+Dhmoi.prototype.constructor = Dhmoi;
+
+Dhmoi.prototype.read = function() {
+    const text = fs.readFileSync( this._csvFilename, "utf8" );
+    const rows = text.split( '\n' );
+    const result = rows.map( r => {
+        let [ id, name, nom_name, area, pop2021 ] = r.split( ',' );
+        area = parseFloat( area );
+        pop2021 = parseInt( pop2021 );
+        return { id, name, nom_name, area, pop2021 }; 
+    } )
+
+    this._data = result;
+    return this;
+}
+
 // specific class to export
 
 function DataHandler() {
@@ -84,14 +108,19 @@ function DataHandler() {
         "data/periphereies_simplified.topojson"
     );
 
-
     this.nomoi = new Nomoi(
         "data/nomoi_okxe_final.csv",
         "data/nomoi_okxe_simplified.topojson"  
     );
 
+    this.dhmoi = new Dhmoi(
+        "data/dhmoi_okxe_final.csv",
+        "data/dhmoi_okxe_simplified.topojson"  
+    );
+
     this.periphereies.read();
     this.nomoi.read();
+    this.dhmoi.read();
 }
 
 export default DataHandler;
