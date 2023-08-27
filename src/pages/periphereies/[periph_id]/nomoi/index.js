@@ -1,5 +1,5 @@
 import Menu from "@/components/Menu.js";
-import NomoiList from "@/components/NomoiList";
+import NomoiTile from "@/components/NomoiTile";
 import * as topojsonClient from 'topojson-client/dist/topojson-client';
 import DataHandler from "@/helpers/DataHandler";
 
@@ -7,14 +7,28 @@ function Nomoi( { periphereia, nomoi, topojson } ) {
 
     const geojson = topojsonClient.feature( topojson, topojson.objects.nomoi_okxe );
 
+    let key = 0;
+
     return (
         <>
         <Menu />
-        <NomoiList 
-            periphereia={periphereia}        
-            nomoi={nomoi}   
-            geojson={geojson}
-        />
+        <ul className="flex-container">
+        {
+            nomoi.map( nomos => {
+                key++;
+                return (
+                    <div className="flex-item">
+                    <NomoiTile 
+                        key={key}
+                        periphereia={periphereia}
+                        nomos={nomos}
+                        geojson={geojson}
+                    />
+                    </div>
+                )
+            } )
+        }
+        </ul>
         </>
     );
 }
@@ -41,6 +55,7 @@ export async function getStaticProps( context ) {
     const dh = new DataHandler();
     const periphereia = dh.periphereies.findOne( p => p.id === periph_id );
     const nomoi = dh.nomoi.findMany( n => n.periph_name === periphereia.name );
+    nomoi.forEach( n => n.dhmoi = dh.dhmoi.findMany( d => d.nom_name === n.name ) );
     const topojson = dh.nomoi.readTopojson();
 
     const names = nomoi.map( n => n.name );

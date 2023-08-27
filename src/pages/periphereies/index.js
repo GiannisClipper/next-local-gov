@@ -1,5 +1,5 @@
 import Menu from "@/components/Menu.js";
-import PeriphList from "@/components/PeriphList";
+import PeriphTile from "@/components/PeriphTile";
 import * as topojsonClient from 'topojson-client/dist/topojson-client';
 import DataHandler from "@/helpers/DataHandler";
 
@@ -7,15 +7,30 @@ function Periphereies( { periphereies, topojson } ) {
 
     const geojson = topojsonClient.feature( topojson, topojson.objects.periphereies );
 
+    let key = 0;
+
     return (
         <>
         <Menu />
-        <PeriphList
-            periphereies={periphereies}
-            geojson={geojson}
-        />
+        <ul className="flex-container">
+            {
+                periphereies.map( periphereia => {
+                    key++;
+                    return (
+                        <div className="flex-item">
+                        <PeriphTile 
+                            key={key}
+                            periphereia={periphereia}
+                            geojson={geojson}
+                        />
+                        </div>
+                    )
+                } )
+            }
+        </ul>
         </>
-    );
+
+    );    
 }
 
 export default Periphereies;
@@ -25,6 +40,7 @@ export async function getStaticProps() {
 
     const dh = new DataHandler();
     const periphereies = dh.periphereies.findAll();
+    periphereies.forEach( p => p.nomoi = dh.nomoi.findMany( n => n.periph_name === p.name ) );
     const topojson = dh.periphereies.readTopojson();
 
     /*

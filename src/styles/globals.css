@@ -1,5 +1,13 @@
 * {
-    box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	
+	box-sizing: border-box;
+}
+
+html, body  { 
+	height: 100hv;
+	width: 100wv;
 }
 
 body {
@@ -15,9 +23,31 @@ h2 {
     padding: .5rem;
 }
 
-.tile {
-    display: inline-block;
+ul {
+    list-style-type: none;
+    display: flex;
+	flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+ul > div {
     margin: 1em;
+    /* setting width, results the same height to all items 
+    /* width: 100%; */
+    /* setting flex, cancels the justify-content setting
+    /* flex: 1; */
+}
+
+ul > div > a {
+    /* setting height, results the same height to all items 
+    /* height: 100%; */
+    display: inline-block;
+    text-decoration: none;
+}
+
+.tile {
+    /* setting height, results the same height to all items 
+    /* height: 100%; */
     width: 304px;
     border: 2px solid lightsteelblue;
     background-color: lightsteelblue;
@@ -37,4 +67,13 @@ h2 {
 .tile .map {
     padding: .125em 0;
     /* overflow: hidden; */
+}
+
+.tile .info {
+    /* max-height: 60px;
+    min-height: 60px;
+    overflow: hidden; */
+    padding: 0 8px 16px 8px;
+    font-size: .85em;
+    color: #060606;
 }

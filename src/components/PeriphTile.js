@@ -3,7 +3,9 @@ import MapSimpleViewer from "@/components/MapSimpleViewer";
 
 function PeriphTile( { periphereia, geojson } ) {
 
-    const { id, name } = periphereia;
+    const { id, name, nomoi } = periphereia;
+    const nomNames = nomoi.map( n => n.name ).join( ', ' );
+    const text= `Στην περιφέρεια ${name} περιλαμβάνονται οι νομοί ${nomNames}.`;
 
     return (
         <Link href={`/periphereies/${id}/nomoi`}>
@@ -20,6 +22,9 @@ function PeriphTile( { periphereia, geojson } ) {
                         strokeFunc={ ( d ) => d.properties.PER !== name ? "#333333" : "#333333" }
                         fillFunc={ ( d ) => d.properties.PER !== name ? "white" : "steelblue" }
                     />
+                </div>
+                <div className="info">
+                    {text}
                 </div>
             </li>
         </Link>
