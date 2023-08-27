@@ -1,6 +1,7 @@
+import Link from "next/link";
+import * as topojsonClient from 'topojson-client/dist/topojson-client';
 import Menu from "@/components/Menu.js";
 import PeriphTile from "@/components/PeriphTile";
-import * as topojsonClient from 'topojson-client/dist/topojson-client';
 import DataHandler from "@/helpers/DataHandler";
 
 function Periphereies( { periphereies, topojson } ) {
@@ -15,21 +16,25 @@ function Periphereies( { periphereies, topojson } ) {
         <ul className="flex-container">
             {
                 periphereies.map( periphereia => {
+
+                    const { id } = periphereia;
                     key++;
+
                     return (
                         <div className="flex-item">
-                        <PeriphTile 
-                            key={key}
-                            periphereia={periphereia}
-                            geojson={geojson}
-                        />
+                            <Link href={`/lists/periphereies/${id}/nomoi`}>
+                                <PeriphTile 
+                                    key={key}
+                                    periphereia={periphereia}
+                                    geojson={geojson}
+                                />
+                            </Link>
                         </div>
-                    )
+                    );
                 } )
             }
         </ul>
         </>
-
     );    
 }
 

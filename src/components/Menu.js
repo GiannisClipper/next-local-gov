@@ -9,11 +9,11 @@ function Menu() {
                 <h2>Home</h2>
             </Link>
 
-            <Link href="/periphereies">
+            <Link href="/lists/periphereies">
                 <h2>Κατάλογοι</h2>
             </Link>
 
-            <Link href="/periphereies/map">
+            <Link href="/maps/periphereies">
                 <h2>Χάρτες</h2>
             </Link>
 

@@ -11,7 +11,7 @@ function Map( { periphereia, nomoi, topojson } ) {
     const onClickHandler = d => {
         const periph_id = periphereia.id;
         const nomoi_id = nomoi.find( n => d.properties.NAME_GR === n.name ).id;
-        router.push( `/periphereies/${periph_id}/nomoi/${nomoi_id}` );
+        router.push( `/maps/periphereies/${periph_id}/nomoi/${nomoi_id}/dhmoi` );
     };
     
     return (

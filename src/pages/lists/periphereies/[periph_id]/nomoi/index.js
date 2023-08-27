@@ -1,28 +1,46 @@
-import Menu from "@/components/Menu";
-import MapViewer from "@/components/MapViewer";
+import Link from "next/link";
 import * as topojsonClient from 'topojson-client/dist/topojson-client';
+import Menu from "@/components/Menu.js";
+import NomoiTile from "@/components/NomoiTile";
 import DataHandler from "@/helpers/DataHandler";
 
-function Perifereia( { topojson } ) {
+function Nomoi( { periphereia, nomoi, topojson } ) {
 
     const geojson = topojsonClient.feature( topojson, topojson.objects.nomoi_okxe );
+    const periph_id = periphereia.id;
+
+    let key = 0;
 
     return (
         <>
         <Menu />
-        <MapViewer 
-            width={800} 
-            height={600} 
-            geojson={geojson}
-            // pathStrokec={ ( d ) => d.properties.NAME_GR !== name ? "#333333" : "#333333" }
-            // pathFill={ ( d ) => d.properties.NAME_GR !== name ? "white" : "steelblue" }
-            textProp={ d => d.properties.NAME_GR + ' ' + d.properties.ID }
-        />
+        <ul className="flex-container">
+        {
+            nomoi.map( nomos => {
+
+                const { id } = nomos;
+                key++;
+
+                return (
+                    <div className="flex-item">
+                        <Link href={`/lists/periphereies/${periph_id}/nomoi/${id}/dhmoi`}>
+                            <NomoiTile 
+                                key={key}
+                                periphereia={periphereia}
+                                nomos={nomos}
+                                geojson={geojson}
+                            />
+                        </Link>
+                    </div>
+                );
+            } )
+        }
+        </ul>
         </>
     );
 }
 
-export default Perifereia;
+export default Nomoi;
 
 export async function getStaticPaths() {
 
@@ -44,17 +62,19 @@ export async function getStaticProps( context ) {
     const dh = new DataHandler();
     const periphereia = dh.periphereies.findOne( p => p.id === periph_id );
     const nomoi = dh.nomoi.findMany( n => n.periph_name === periphereia.name );
+    nomoi.forEach( n => n.dhmoi = dh.dhmoi.findMany( d => d.nom_name === n.name ) );
     const topojson = dh.nomoi.readTopojson();
-    
+
     const names = nomoi.map( n => n.name );
     const geometries = topojson.objects.nomoi_okxe.geometries.filter( g => names.includes( g.properties.NAME_GR ) );
-    //geometries.forEach( (g,i) => g.properties.ID = `ID-${i}` );
     topojson.objects.nomoi_okxe.geometries = geometries;
     
-    console.log( `Static rendering Periphereies/id` );
+    console.log( `Static rendering Periphereies/id/Nomoi` );
 
     return {
         props: {
+            periphereia,
+            nomoi,
             topojson
         }
     }

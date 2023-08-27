@@ -10,7 +10,7 @@ function Map( { periphereies, topojson } ) {
     const router = useRouter();
     const onClickHandler = d => {
         const periph_id = periphereies.find( p => d.properties.PER === p.name ).id;
-        router.push( `/periphereies/${periph_id}/nomoi/map` );
+        router.push( `/maps/periphereies/${periph_id}/nomoi` );
     };
     
     return (
