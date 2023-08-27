@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import * as d3 from 'd3';
 
-function MapViewer( { width, height, geojson, pathStroke, pathFill, textProp, clickMap } ) {
+function MapViewer( { width, height, geojson, pathStroke, pathFill, textProp, onClickHandler } ) {
 
     useEffect( () => {
 
@@ -57,13 +57,13 @@ function MapViewer( { width, height, geojson, pathStroke, pathFill, textProp, cl
 
         const group = svg.append( "g" );
 
-        group.append( "ellipse" )
-            .attr("cx", width / 2 )
-            .attr("cy", height / 2 )
-            .attr("rx", height/2 )
-            .attr("ry", height/2)
-            .attr("stroke", "yellow")
-            .attr( "fill", "transparent" );
+        // group.append( "ellipse" )
+        //     .attr("cx", width / 2 )
+        //     .attr("cy", height / 2 )
+        //     .attr("rx", height/2 )
+        //     .attr("ry", height/2)
+        //     .attr("stroke", "yellow")
+        //     .attr( "fill", "transparent" );
 
         group.selectAll( "path" )
             .data( geojson.features )
@@ -76,7 +76,7 @@ function MapViewer( { width, height, geojson, pathStroke, pathFill, textProp, cl
                 d3.select( this )
                     .transition()
                     .duration( 200 )
-                    .style( 'fill', 'lightgreen' )
+                    .style( 'fill', 'lightsteelblue' )
             } )
             .on( 'mouseout', function( e, d ) { 
                 d3.select( this )
@@ -84,17 +84,17 @@ function MapViewer( { width, height, geojson, pathStroke, pathFill, textProp, cl
                   .duration( 200 )
                     .style( 'fill', 'white')
             } )
-            .on( 'click', function (e, d) {
-                clickMap()
+            .on( 'click', function ( e, d ) {
+                onClickHandler( d )
                 // alert( textProp(d) )
             } )
 
-        svg.append("rect")
-            .attr("x", bounds[ 0 ][ 0 ])
-            .attr("y", bounds[ 0 ][ 1 ])
-            .attr("width", bounds[ 1 ][ 0 ]-bounds[ 0 ][ 0 ])
-            .attr("height", bounds[ 1 ][ 1 ]-bounds[ 0 ][ 1 ])
-            .attr("stroke", "red");
+        // svg.append("rect")
+        //     .attr("x", bounds[ 0 ][ 0 ])
+        //     .attr("y", bounds[ 0 ][ 1 ])
+        //     .attr("width", bounds[ 1 ][ 0 ]-bounds[ 0 ][ 0 ])
+        //     .attr("height", bounds[ 1 ][ 1 ]-bounds[ 0 ][ 1 ])
+        //     .attr("stroke", "red");
 
         group.selectAll( "text" )
             .data( geojson.features )

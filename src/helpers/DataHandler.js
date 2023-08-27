@@ -80,13 +80,13 @@ Nomoi.prototype.read = function() {
 function DataHandler() {
 
     this.periphereies = new Periphereies(
-        "data/periphereies_index.csv",
+        "data/periphereies_final.csv",
         "data/periphereies_simplified.topojson"
     );
 
 
     this.nomoi = new Nomoi(
-        "data/nomoi_okxe_index.csv",
+        "data/nomoi_okxe_final.csv",
         "data/nomoi_okxe_simplified.topojson"  
     );
 

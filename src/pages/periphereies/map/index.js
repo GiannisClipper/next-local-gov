@@ -4,11 +4,14 @@ import * as topojsonClient from 'topojson-client/dist/topojson-client';
 import { useRouter } from "next/router";
 import DataHandler from "@/helpers/DataHandler";
 
-function Map( { topojson } ) {
+function Map( { periphereies, topojson } ) {
 
     const geojson = topojsonClient.feature( topojson, topojson.objects.periphereies );
     const router = useRouter();
-    const clickMap = () => router.push( "/periphereies" );
+    const onClickHandler = d => {
+        const periph_id = periphereies.find( p => d.properties.PER === p.name ).id;
+        router.push( `/periphereies/${periph_id}/nomoi/map` );
+    };
     
     return (
         <>
@@ -20,7 +23,7 @@ function Map( { topojson } ) {
             // pathStrokec={ ( d ) => d.properties.NAME_GR !== name ? "#333333" : "#333333" }
             // pathFill={ ( d ) => d.properties.NAME_GR !== name ? "white" : "steelblue" }
             textProp={ d => d.properties.PER }
-            clickMap={ clickMap }
+            onClickHandler={ onClickHandler }
         />
         </>
     );
@@ -31,12 +34,14 @@ export default Map;
 export async function getStaticProps() {
 
     const dh = new DataHandler();
+    const periphereies = dh.periphereies.findAll();
     const topojson = dh.periphereies.readTopojson();
 
     console.log( `Static rendering Periphereies/Map` );
 
     return {
         props: {
+            periphereies,
             topojson
         }
     }
