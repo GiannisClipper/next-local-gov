@@ -22,10 +22,9 @@ function Nomoi( { periphereia, nomoi, topojson } ) {
                 key++;
 
                 return (
-                    <div className="flex-item">
+                    <div key={key} className="flex-item">
                         <Link href={`/lists/periphereies/${periph_id}/nomoi/${id}/dhmoi`}>
                             <NomoiTile 
-                                key={key}
                                 periphereia={periphereia}
                                 nomos={nomos}
                                 geojson={geojson}
@@ -62,7 +61,7 @@ export async function getStaticProps( context ) {
     const dh = new DataHandler();
     const periphereia = dh.periphereies.findOne( p => p.id === periph_id );
     const nomoi = dh.nomoi.findMany( n => n.periph_name === periphereia.name );
-    nomoi.forEach( n => n.dhmoi = dh.dhmoi.findMany( d => d.nom_name === n.name ) );
+    nomoi.forEach( n => n.dhmoi = dh.dhmoi.findMany( d => d.nomos_name === n.name ) );
     const topojson = dh.nomoi.readTopojson();
 
     const names = nomoi.map( n => n.name );

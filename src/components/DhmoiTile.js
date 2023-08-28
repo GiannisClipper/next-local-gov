@@ -1,10 +1,9 @@
 import MapSimpleViewer from "@/components/MapSimpleViewer";
 
-function NomoiTile( { periphereia, nomos, geojson } ) {
+function DhmoiTile( { periphereia, nomos, dhmos, geojson } ) {
 
-    const { id, name, dhmoi } = nomos;
-    const dhmNames = dhmoi.map( d => d.name ).join( ', ' );
-    const info = `Στο νομό ${name} περιλαμβάνονται οι δήμοι ${dhmNames}.`;
+    const { id, name, area, pop2021 } = dhmos;
+    const info = `Ο δήμος ${name} έχει έκταση ${area} τ.χμ. και πληθυσμό ${pop2021} άτομα σύμφωνα με την απογραφή του 2021.`;
 
     return (
         <li className="tile">
@@ -18,8 +17,8 @@ function NomoiTile( { periphereia, nomos, geojson } ) {
                     width={300} 
                     height={300} 
                     geojson={geojson}
-                    strokeFunc={ ( d ) => d.properties.NAME_GR !== name ? "#333333" : "#333333" }
-                    fillFunc={ ( d ) => d.properties.NAME_GR !== name ? "white" : "steelblue" }
+                    strokeFunc={ ( d ) => d.properties.NAME !== name ? "#333333" : "#333333" }
+                    fillFunc={ ( d ) => d.properties.NAME !== name ? "white" : "steelblue" }
                 />
             </div>
 
@@ -30,4 +29,4 @@ function NomoiTile( { periphereia, nomos, geojson } ) {
     );
 }
 
-export default NomoiTile;
+export default DhmoiTile;

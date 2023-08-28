@@ -21,10 +21,9 @@ function Periphereies( { periphereies, topojson } ) {
                     key++;
 
                     return (
-                        <div className="flex-item">
+                        <div key={key} className="flex-item">
                             <Link href={`/lists/periphereies/${id}/nomoi`}>
                                 <PeriphTile 
-                                    key={key}
                                     periphereia={periphereia}
                                     geojson={geojson}
                                 />

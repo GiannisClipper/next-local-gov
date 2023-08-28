@@ -89,10 +89,10 @@ Dhmoi.prototype.read = function() {
     const text = fs.readFileSync( this._csvFilename, "utf8" );
     const rows = text.split( '\n' );
     const result = rows.map( r => {
-        let [ id, name, nom_name, area, pop2021 ] = r.split( ',' );
+        let [ id, name, nomos_name, area, pop2021 ] = r.split( ',' );
         area = parseFloat( area );
         pop2021 = parseInt( pop2021 );
-        return { id, name, nom_name, area, pop2021 }; 
+        return { id, name, nomos_name, area, pop2021 }; 
     } )
 
     this._data = result;
