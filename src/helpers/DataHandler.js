@@ -120,6 +120,19 @@ function DataHandler() {
         "data/dhmoi_okxe_final.csv",
         "data/dhmoi_okxe_simplified.topojson"  
     );
+
+    const text = fs.readFileSync( "data/additions.json", "utf8" );
+    const additions = JSON.parse( text );
+
+    const propsInjection = ( data, additions ) => {
+        return data.map( x => {
+            const props = additions[ x.name ];
+            return props ? { ...x, ...props } : x;
+        } ); 
+    }
+
+    this.nomoi._data = propsInjection( this.nomoi._data, additions.nomoi );
+    this.dhmoi._data = propsInjection( this.dhmoi._data, additions.dhmoi );
 }
 
 export default DataHandler;
