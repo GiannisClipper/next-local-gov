@@ -1,10 +1,6 @@
 import MapSimpleViewer from "@/components/MapSimpleViewer";
 
-function PeriphTile( { periphereia, geojson } ) {
-
-    const { id, name, nomoi } = periphereia;
-    const nomNames = nomoi.map( n => n.name ).join( ', ' );
-    const info = `Στην περιφέρεια ${name} περιλαμβάνονται οι νομοί ${nomNames}.`;
+function Tile( { id, name, info, geojson, attrStrokeHandler, attrFillHandler } ) {
 
     return (
         <li className="tile">
@@ -18,8 +14,8 @@ function PeriphTile( { periphereia, geojson } ) {
                     width={300} 
                     height={300} 
                     geojson={geojson}
-                    strokeFunc={ ( d ) => d.properties.PER !== name ? "#333333" : "#333333" }
-                    fillFunc={ ( d ) => d.properties.PER !== name ? "white" : "steelblue" }
+                    strokeFunc={attrStrokeHandler}
+                    fillFunc={attrFillHandler}
                 />
             </div>
 
@@ -30,4 +26,4 @@ function PeriphTile( { periphereia, geojson } ) {
     );
 }
 
-export default PeriphTile;
+export default Tile;

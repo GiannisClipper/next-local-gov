@@ -131,6 +131,7 @@ function DataHandler() {
         } ); 
     }
 
+    this.periphereies._data = propsInjection( this.periphereies._data, additions.periphereies );
     this.nomoi._data = propsInjection( this.nomoi._data, additions.nomoi );
     this.dhmoi._data = propsInjection( this.dhmoi._data, additions.dhmoi );
 }

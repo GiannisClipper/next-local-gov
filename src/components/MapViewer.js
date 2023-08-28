@@ -105,7 +105,7 @@ function MapViewer( { width, height, geojson, pathStroke, pathFill, textProp, on
             // .attr( "dy", ".35em" )
             .style( "text-anchor", "middle" )
             .style( "font-size", ".66em" )
-            .style( "color", "lime" )
+            .style( "color", "steelblue" )
             .text( textProp );
 
         // const u = d3.select( `.map-content-${id}` )            

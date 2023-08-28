@@ -1,7 +1,7 @@
 // import Link from "next/link";
 import * as topojsonClient from 'topojson-client/dist/topojson-client';
 import Menu from "@/components/Menu.js";
-import DhmoiTile from "@/components/DhmoiTile";
+import Tile from "@/components/Tile";
 import DataHandler from "@/helpers/DataHandler";
 
 function DhmoiList( { periphereia, nomos, dhmoi, topojson } ) {
@@ -16,15 +16,20 @@ function DhmoiList( { periphereia, nomos, dhmoi, topojson } ) {
         {
             dhmoi.map( dhmos => {
 
+                const { id, name, info } = dhmos;
+                const attrStrokeHandler = d => d.properties.NAME_ !== name ? "#333333" : "#333333";
+                const attrFillHandler = d => d.properties.NAME !== name ? "white" : "steelblue";
                 key++;
 
                 return (
                     <div key={key} className="flex-item">
-                        <DhmoiTile 
-                            periphereia={periphereia}
-                            nomos={nomos}
-                            dhmos={dhmos}
+                        <Tile
+                            id={id}
+                            name={name}
+                            info={info}
                             geojson={geojson}
+                            attrStrokeHandler={attrStrokeHandler}
+                            attrFillHandler={attrFillHandler}
                         />
                     </div>
                 );
@@ -62,10 +67,24 @@ export async function getStaticProps( context ) {
     const { params } = context;
     const { periph_id, nomos_id } = params;
 
+    // select csv data
+
     const dh = new DataHandler();
     const periphereia = dh.periphereies.findOne( p => p.id === periph_id );
     const nomos = dh.nomoi.findOne( n => n.id === nomos_id );
     const dhmoi = dh.dhmoi.findMany( d => d.nomos_name === nomos.name );
+
+    // add info property
+
+    dhmoi.forEach( d => {
+        if ( ! d.info ) {
+            const { name, area, pop2021 } = d;
+            d.info = `Ο δήμος ${name} έχει έκταση ${area} τ.χμ. και πληθυσμό ${pop2021} κάτοικους (απογραφή 2021).`;
+        }
+    } );
+
+    // select topojson data
+
     const topojson = dh.dhmoi.readTopojson();
 
     const ids = dhmoi.map( d => d.id );
