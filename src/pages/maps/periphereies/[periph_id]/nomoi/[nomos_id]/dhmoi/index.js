@@ -49,12 +49,16 @@ export async function getStaticProps( context ) {
     const { params } = context;
     const { periph_id, nomos_id } = params;
 
+    // select csv data
+
     const dh = new DataHandler();
     const periphereia = dh.periphereies.findOne( p => p.id === periph_id );
     const nomos = dh.nomoi.findOne( n => n.id === nomos_id );
     const dhmoi = dh.dhmoi.findMany( d => d.nomos_name === nomos.name );
-    const topojson = dh.dhmoi.readTopojson();
 
+    // select topojson data
+
+    const topojson = dh.dhmoi.readTopojson();
     const ids = dhmoi.map( d => d.id );
     const geometries = topojson.objects.dhmoi_okxe.geometries.filter( g => ids.includes( g.properties.KWD_YPES ) );
     topojson.objects.dhmoi_okxe.geometries = geometries;

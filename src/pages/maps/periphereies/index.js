@@ -33,11 +33,16 @@ export default PeriphMap;
 
 export async function getStaticProps() {
 
+    // select csv data
+
     const dh = new DataHandler();
     const periphereies = dh.periphereies.findAll();
+
+    // select topojson data
+
     const topojson = dh.periphereies.readTopojson();
 
-    console.log( `Static rendering Periphereies/Map` );
+    console.log( `Static rendering maps/periphereies` );
 
     return {
         props: {

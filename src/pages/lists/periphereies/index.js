@@ -12,33 +12,34 @@ function PeriphList( { periphereies, topojson } ) {
 
     return (
         <>
-        <Menu />
-        <ul className="flex-container">
-        {
-            periphereies.map( periphereia => {
+            <Menu />
 
-                const { id, name, info } = periphereia;
-                const attrStrokeHandler = d => d.properties.PER !== name ? "#333333" : "#333333";
-                const attrFillHandler = d => d.properties.PER !== name ? "white" : "steelblue";
-                key++;
+            <ul className="flex-container">
+            {
+                periphereies.map( periphereia => {
 
-                return (
-                    <div key={key} className="flex-item">
-                        <Link href={`/lists/periphereies/${id}/nomoi`}>
-                            <Tile
-                                id={id}
-                                name={name}
-                                info={info}
-                                geojson={geojson}
-                                attrStrokeHandler={attrStrokeHandler}
-                                attrFillHandler={attrFillHandler}
-                            />
-                        </Link>
-                    </div>
-                );
-            } )
-        }
-        </ul>
+                    const { id, name, info } = periphereia;
+                    const attrStrokeHandler = d => d.properties.PER !== name ? "#333333" : "#333333";
+                    const attrFillHandler = d => d.properties.PER !== name ? "white" : "steelblue";
+                    key++;
+
+                    return (
+                        <div key={key} className="flex-item">
+                            <Link href={`/lists/periphereies/${id}/nomoi`}>
+                                <Tile
+                                    id={id}
+                                    name={name}
+                                    info={info}
+                                    geojson={geojson}
+                                    attrStrokeHandler={attrStrokeHandler}
+                                    attrFillHandler={attrFillHandler}
+                                />
+                            </Link>
+                        </div>
+                    );
+                } )
+            }
+            </ul>
         </>
     );    
 }

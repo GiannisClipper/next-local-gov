@@ -6,7 +6,36 @@ import DataHandler from "@/helpers/DataHandler";
 
 function DhmoiList( { periphereia, nomos, dhmoi, topojson } ) {
 
+    // let manyGeometries = [];
+
+    // if ( nomos.partialFocus ) {
+    //     for ( let i = 0; i < nomos.partialFocus.length; i++ ) {
+    //         const part = nomos.partialFocus[ i ];
+    //         // const geometries = topojson.objects.dhmoi_okxe.geometries.filter( g => part.includes( g.properties.NAME ) );
+    //         // manyGeometries.push( geometries );
+    //         const geometries = [];
+    //         for ( let i = 0; i < topojson.objects.dhmoi_okxe.geometries.length; i++ ) {
+    //             if ( part.includes( topojson.objects.dhmoi_okxe.geometries[ i ].properties.NAME ) ) {
+    //                 geometries.push( topojson.objects.dhmoi_okxe.geometries[ i ] );
+    //             }
+    //         }
+    //         manyGeometries.push( geometries );
+    //     }
+    //     manyGeometries = JSON.stringify( manyGeometries );
+
+    // } else {
+    //     manyGeometries.push( topojson.objects.dhmoi_okxe.geometries );
+    // }
+
+    // const geojsons = [];
+    // for ( let i = 0; i < nomos.partialFocus.length; i++ ) {
+    //     const geometries = JSON.parse( manyGeometries )[ i ];
+    //     topojson.objects.dhmoi_okxe.geometries = geometries;
+    //     geojsons.push( topojsonClient.feature( topojson, topojson.objects.dhmoi_okxe ) );
+    // }
+
     const geojson = topojsonClient.feature( topojson, topojson.objects.dhmoi_okxe );
+
     let key = 0;
 
     return (
@@ -16,6 +45,15 @@ function DhmoiList( { periphereia, nomos, dhmoi, topojson } ) {
         {
             dhmoi.map( dhmos => {
 
+                // let geojson = geojsons[ 0 ];
+                // if ( nomos.partialFocus ) {
+                //     for ( let i = 0; i < nomos.partialFocus.length; i++ ) {
+                //         if ( nomos.partialFocus[ i ].includes( name ) ) {
+                //             geojson = geojsons[ i ];
+                //             break;
+                //         }
+                //     }
+                // }
                 const { id, name, info } = dhmos;
                 const attrStrokeHandler = d => d.properties.NAME_ !== name ? "#333333" : "#333333";
                 const attrFillHandler = d => d.properties.NAME !== name ? "white" : "steelblue";
@@ -85,8 +123,9 @@ export async function getStaticProps( context ) {
 
     // select topojson data
 
-    const topojson = dh.dhmoi.readTopojson();
+    const topojsons = [];
 
+    const topojson = dh.dhmoi.readTopojson();
     const ids = dhmoi.map( d => d.id );
     const geometries = topojson.objects.dhmoi_okxe.geometries.filter( g => ids.includes( g.properties.KWD_YPES ) );
     topojson.objects.dhmoi_okxe.geometries = geometries;

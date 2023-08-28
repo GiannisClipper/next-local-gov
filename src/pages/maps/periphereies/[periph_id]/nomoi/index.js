@@ -49,16 +49,20 @@ export async function getStaticProps( context ) {
     const { params } = context;
     const { periph_id } = params;
 
+    // select csv data
+
     const dh = new DataHandler();
     const periphereia = dh.periphereies.findOne( p => p.id === periph_id );
     const nomoi = dh.nomoi.findMany( n => n.periph_name === periphereia.name );
-    const topojson = dh.nomoi.readTopojson();
 
+    // select topojson data
+
+    const topojson = dh.nomoi.readTopojson();
     const names = nomoi.map( n => n.name );
     const geometries = topojson.objects.nomoi_okxe.geometries.filter( g => names.includes( g.properties.NAME_GR ) );
     topojson.objects.nomoi_okxe.geometries = geometries;
     
-    console.log( `Static rendering Periphereies/id/Nomoi/Map` );
+    console.log( `Static rendering maps/periphereies/{id}/nomoi` );
 
     return {
         props: {
