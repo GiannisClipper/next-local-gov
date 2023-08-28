@@ -1,8 +1,9 @@
 import Link from "next/link";
 import * as topojsonClient from 'topojson-client/dist/topojson-client';
-import Menu from "@/components/Menu.js";
+import { LinksMenu, LinkPeriph, LinkPeriphIdNomoi, LinkPeriphIdNomoiIdDhmoi } from "@/components/Links";
 import Tile from "@/components/Tile";
 import DataHandler from "@/helpers/DataHandler";
+//import { LinkPeriph } from "./[periph_id]/nomoi";
 
 function PeriphList( { periphereies, topojson } ) {
 
@@ -12,34 +13,36 @@ function PeriphList( { periphereies, topojson } ) {
 
     return (
         <>
-            <Menu />
+        <LinksMenu>
+            <LinkPeriph focus={true} domain="lists" />
+        </LinksMenu>
 
-            <ul className="flex-container">
-            {
-                periphereies.map( periphereia => {
+        <ul className="flex-container">
+        {
+            periphereies.map( periphereia => {
 
-                    const { id, name, info } = periphereia;
-                    const attrStrokeHandler = d => d.properties.PER !== name ? "#333333" : "#333333";
-                    const attrFillHandler = d => d.properties.PER !== name ? "white" : "steelblue";
-                    key++;
+                const { id, name, info } = periphereia;
+                const attrStrokeHandler = d => d.properties.PER !== name ? "#333333" : "#333333";
+                const attrFillHandler = d => d.properties.PER !== name ? "white" : "steelblue";
+                key++;
 
-                    return (
-                        <div key={key} className="flex-item">
-                            <Link href={`/lists/periphereies/${id}/nomoi`}>
-                                <Tile
-                                    id={id}
-                                    name={name}
-                                    info={info}
-                                    geojson={geojson}
-                                    attrStrokeHandler={attrStrokeHandler}
-                                    attrFillHandler={attrFillHandler}
-                                />
-                            </Link>
-                        </div>
-                    );
-                } )
-            }
-            </ul>
+                return (
+                    <div key={key} className="flex-item">
+                        <Link href={`/lists/periphereies/${id}/nomoi`}>
+                            <Tile
+                                id={id}
+                                name={name}
+                                info={info}
+                                geojson={geojson}
+                                attrStrokeHandler={attrStrokeHandler}
+                                attrFillHandler={attrFillHandler}
+                            />
+                        </Link>
+                    </div>
+                );
+            } )
+        }
+        </ul>
         </>
     );    
 }

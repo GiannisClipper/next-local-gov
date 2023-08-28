@@ -1,11 +1,10 @@
 * {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
+	box-sizing: border-box;
 
     margin: 0;
     padding: 0;
-    
-	box-sizing: border-box;
 }
 
 a {
@@ -27,7 +26,7 @@ body {
 
 .layout {
     max-width: 1360px;
-    min-width: 95%;
+    min-width: 95vw;
     min-height: 100vh;
     /* background-color: gainsboro; */
     background-color: BurlyWood;
@@ -45,7 +44,7 @@ body {
     margin: 1em;
     display: inline-block;
     border: 1px solid indianred;
-    padding: .5rem 1em;;
+    padding: .5em 1.25em;
     color: indianred;
     rotate: -4deg;
 }
@@ -56,8 +55,8 @@ body {
 }
 
 .header div.focus {
-    border: 1px solid linen;
-    color: linen;
+    background-color: indianred;
+    color: BurlyWood;
 }
 
 .header .home {
@@ -68,6 +67,25 @@ body {
 .header .maps {
     border: 1px solid indianred;
     font-size: 1.25em;
+}
+
+.links_menu {
+    padding-left: 3em;
+    padding-bottom: 1em;
+}
+
+.links_menu span {
+    margin-right: .5em;
+    padding: .25em .75em;
+    border: 1px solid indianred;
+    color: indianred;
+    font-size: .90em;
+    font-weight: 600;
+}
+
+.links_menu span.focus {
+    background-color: indianred;
+    color: BurlyWood;
 }
 
 main {

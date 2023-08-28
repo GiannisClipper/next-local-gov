@@ -1,8 +1,8 @@
-import Menu from "@/components/Menu";
-import MapViewer from "@/components/MapViewer";
 import * as topojsonClient from 'topojson-client/dist/topojson-client';
 import { useRouter } from "next/router";
 import DataHandler from "@/helpers/DataHandler";
+import { LinksMenu, LinkPeriph, LinkPeriphIdNomoi, LinkPeriphIdNomoiIdDhmoi } from "@/components/Links";
+import MapViewer from "@/components/MapViewer";
 
 function PeriphMap( { periphereies, topojson } ) {
 
@@ -15,7 +15,10 @@ function PeriphMap( { periphereies, topojson } ) {
     
     return (
         <>
-        <Menu />
+        <LinksMenu>
+            <LinkPeriph focus={true} domain="maps"/>
+        </LinksMenu>
+
         <MapViewer 
             width={800} 
             height={600} 

@@ -1,6 +1,6 @@
 // import Link from "next/link";
 import * as topojsonClient from 'topojson-client/dist/topojson-client';
-import Menu from "@/components/Menu.js";
+import { LinksMenu, LinkPeriph, LinkPeriphIdNomoi, LinkPeriphIdNomoiIdDhmoi } from "@/components/Links";
 import Tile from "@/components/Tile";
 import DataHandler from "@/helpers/DataHandler";
 
@@ -36,11 +36,21 @@ function DhmoiList( { periphereia, nomos, dhmoi, topojson } ) {
 
     const geojson = topojsonClient.feature( topojson, topojson.objects.dhmoi_okxe );
 
+    const periph_id = periphereia.id;
+    const periph_name = periphereia.name;
+    const nomos_id = nomos.id;
+    const nomos_name = nomos.name;
+
     let key = 0;
 
     return (
         <>
-        <Menu />
+        <LinksMenu>
+            <LinkPeriph domain="lists" />
+            <LinkPeriphIdNomoi domain="lists" periph_id={periph_id} periph_name={periph_name} />
+            <LinkPeriphIdNomoiIdDhmoi focus={true} domain="lists" periph_id={periph_id} periph_name={periph_name} nomos_id={nomos_id} nomos_name={nomos_name} />
+        </LinksMenu>
+
         <ul className="flex-container">
         {
             dhmoi.map( dhmos => {

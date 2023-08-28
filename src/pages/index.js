@@ -1,11 +1,7 @@
-import Menu from "@/components/Menu";
-
 function Home( { topojson } ) {
     
     return (
         <>
-        <Menu />
-        <main>
             <div className="welcome">
                 <div><span>&#9657;</span> Καλώς ήλθατε,</div>
                 <div>σε αυτή την ενδεικτική παρουσίαση των διαφορετικών βαθμίδων τοπικής αυτοδιοίκησης στην Ελλάδα (περιφέρειες, νομοί, δήμοι).</div>
@@ -22,7 +18,6 @@ function Home( { topojson } ) {
             <div>
                 <span>&#9656;</span> Ο σχεδιασμός και η υλοποίηση έγινε από τον giannisclipper, ο κώδικας είναι ανοικτός και διατίθεται στο github.com/giannisclipper/next-local-gov.
             </div>
-        </main>
         </>
     );
 }

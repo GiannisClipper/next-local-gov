@@ -1,15 +1,25 @@
-import Menu from "@/components/Menu";
-import MapViewer from "@/components/MapViewer";
 import * as topojsonClient from 'topojson-client/dist/topojson-client';
 import DataHandler from "@/helpers/DataHandler";
+import { LinksMenu, LinkPeriph, LinkPeriphIdNomoi, LinkPeriphIdNomoiIdDhmoi } from "@/components/Links";
+import MapViewer from "@/components/MapViewer";
 
-function DhmoiMap( { periphereia, nomoi, topojson } ) {
+function DhmoiMap( { periphereia, nomos, topojson } ) {
 
     const geojson = topojsonClient.feature( topojson, topojson.objects.dhmoi_okxe );
     
+    const periph_id = periphereia.id;
+    const periph_name = periphereia.name;
+    const nomos_id = nomos.id;
+    const nomos_name = nomos.name;
+
     return (
         <>
-        <Menu />
+        <LinksMenu>
+            <LinkPeriph domain="maps"/>
+            <LinkPeriphIdNomoi domain="maps" periph_id={periph_id} periph_name={periph_name} />
+            <LinkPeriphIdNomoiIdDhmoi focus={true} domain="maps" periph_id={periph_id} periph_name={periph_name} nomos_id={nomos_id} nomos_name={nomos_name} />
+        </LinksMenu>
+
         <MapViewer 
             width={800} 
             height={600} 
