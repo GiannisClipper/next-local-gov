@@ -1,41 +1,28 @@
-// import Link from "next/link";
+import Menu from "@/components/Menu";
+import MapViewer from "@/components/MapViewer";
 import * as topojsonClient from 'topojson-client/dist/topojson-client';
-import Menu from "@/components/Menu.js";
-import DhmoiTile from "@/components/DhmoiTile";
 import DataHandler from "@/helpers/DataHandler";
 
-function DhmoiList( { periphereia, nomos, dhmoi, topojson } ) {
+function DhmoiMap( { periphereia, nomoi, topojson } ) {
 
     const geojson = topojsonClient.feature( topojson, topojson.objects.dhmoi_okxe );
-    let key = 0;
-
+    
     return (
         <>
         <Menu />
-        <ul className="flex-container">
-        {
-            dhmoi.map( dhmos => {
-
-                key++;
-
-                return (
-                    <div key={key} className="flex-item">
-                        <DhmoiTile 
-                            periphereia={periphereia}
-                            nomos={nomos}
-                            dhmos={dhmos}
-                            geojson={geojson}
-                        />
-                    </div>
-                );
-            } )
-        }
-        </ul>
+        <MapViewer 
+            width={800} 
+            height={600} 
+            geojson={geojson}
+            // pathStrokec={ ( d ) => d.properties.NAME_GR !== name ? "#333333" : "#333333" }
+            // pathFill={ ( d ) => d.properties.NAME_GR !== name ? "white" : "steelblue" }
+            textProp={ d => d.properties.NAME }
+        />
         </>
     );
 }
 
-export default DhmoiList;
+export default DhmoiMap;
 
 export async function getStaticPaths() {
 
@@ -72,7 +59,7 @@ export async function getStaticProps( context ) {
     const geometries = topojson.objects.dhmoi_okxe.geometries.filter( g => ids.includes( g.properties.KWD_YPES ) );
     topojson.objects.dhmoi_okxe.geometries = geometries;
     
-    console.log( `Static rendering lists/periphereies/{id}/nomoi{id}/dhmoi` );
+    console.log( `Static rendering maps/periphereies/{id}/nomoi{id}/dhmoi` );
 
     return {
         props: {

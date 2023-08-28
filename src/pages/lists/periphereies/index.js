@@ -4,7 +4,7 @@ import Menu from "@/components/Menu.js";
 import PeriphTile from "@/components/PeriphTile";
 import DataHandler from "@/helpers/DataHandler";
 
-function Periphereies( { periphereies, topojson } ) {
+function PeriphList( { periphereies, topojson } ) {
 
     const geojson = topojsonClient.feature( topojson, topojson.objects.periphereies );
 
@@ -37,7 +37,7 @@ function Periphereies( { periphereies, topojson } ) {
     );    
 }
 
-export default Periphereies;
+export default PeriphList;
 
 
 export async function getStaticProps() {

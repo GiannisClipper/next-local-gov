@@ -4,7 +4,7 @@ import Menu from "@/components/Menu.js";
 import NomoiTile from "@/components/NomoiTile";
 import DataHandler from "@/helpers/DataHandler";
 
-function Nomoi( { periphereia, nomoi, topojson } ) {
+function NomoiList( { periphereia, nomoi, topojson } ) {
 
     const geojson = topojsonClient.feature( topojson, topojson.objects.nomoi_okxe );
     const periph_id = periphereia.id;
@@ -39,7 +39,7 @@ function Nomoi( { periphereia, nomoi, topojson } ) {
     );
 }
 
-export default Nomoi;
+export default NomoiList;
 
 export async function getStaticPaths() {
 

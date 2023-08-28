@@ -4,7 +4,7 @@ import * as topojsonClient from 'topojson-client/dist/topojson-client';
 import { useRouter } from "next/router";
 import DataHandler from "@/helpers/DataHandler";
 
-function Map( { periphereia, nomoi, topojson } ) {
+function NomoiMap( { periphereia, nomoi, topojson } ) {
 
     const geojson = topojsonClient.feature( topojson, topojson.objects.nomoi_okxe );
     const router = useRouter();
@@ -30,7 +30,7 @@ function Map( { periphereia, nomoi, topojson } ) {
     );
 }
 
-export default Map;
+export default NomoiMap;
 
 export async function getStaticPaths() {
 

@@ -5,7 +5,7 @@ function MapViewer( { width, height, geojson, pathStroke, pathFill, textProp, on
 
     useEffect( () => {
 
-        // based on `Jan van der Laan` answer/idea:
+        // centering/scaling/translating map is based on `Jan van der Laan` answer/idea:
         // https://stackoverflow.com/questions/14492284/center-a-map-in-d3-given-a-geojson-object
 
         // a sample projection
@@ -85,8 +85,9 @@ function MapViewer( { width, height, geojson, pathStroke, pathFill, textProp, on
                     .style( 'fill', 'white')
             } )
             .on( 'click', function ( e, d ) {
-                onClickHandler( d )
-                // alert( textProp(d) )
+                if ( onClickHandler ) {
+                    onClickHandler( d );
+                }
             } )
 
         // svg.append("rect")

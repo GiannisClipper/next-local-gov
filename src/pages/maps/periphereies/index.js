@@ -4,7 +4,7 @@ import * as topojsonClient from 'topojson-client/dist/topojson-client';
 import { useRouter } from "next/router";
 import DataHandler from "@/helpers/DataHandler";
 
-function Map( { periphereies, topojson } ) {
+function PeriphMap( { periphereies, topojson } ) {
 
     const geojson = topojsonClient.feature( topojson, topojson.objects.periphereies );
     const router = useRouter();
@@ -29,7 +29,7 @@ function Map( { periphereies, topojson } ) {
     );
 }
 
-export default Map;
+export default PeriphMap;
 
 export async function getStaticProps() {
 
