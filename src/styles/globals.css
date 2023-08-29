@@ -18,7 +18,7 @@ ul {
 body {
     min-width: 100vw;
     min-height: 100vh;
-    background-color: indianred;
+    background-color: cadetBlue;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -28,14 +28,19 @@ body {
     max-width: 1360px;
     min-width: 95vw;
     min-height: 100vh;
-    /* background-color: gainsboro; */
-    background-color: BurlyWood;
-    color: indianred;
+    /* background-color: Cornsilk; */
+    background-color: Cornsilk;
+    color: cadetBlue;
     display: flex;
     flex-direction: column;
 }
 
+
+/* header settings */
+
+
 .header {
+    border-bottom: 1px solid cadetblue;
     padding: 1em;
     text-align: left;
 }
@@ -43,20 +48,25 @@ body {
 .header div {
     margin: 1em;
     display: inline-block;
-    border: 1px solid indianred;
+    border: 1px solid cadetBlue;
     padding: .5em 1.25em;
-    color: indianred;
+    color: cadetBlue;
     rotate: -4deg;
 }
 
 .header div:hover {
-    background-color: indianred;
-    color: BurlyWood;
+    background-color: cadetBlue;
+    color: Cornsilk;
+    -webkit-transition: background-color 1000ms linear;
+    -moz-transition: background-color 1000ms linear;
+    -o-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    transition: background-color 1000ms linear;
 }
 
 .header div.focus {
-    background-color: indianred;
-    color: BurlyWood;
+    background-color: cadetBlue;
+    color: Cornsilk;
 }
 
 .header .home {
@@ -65,42 +75,93 @@ body {
 
 .header .lists,
 .header .maps {
-    border: 1px solid indianred;
+    border: 1px solid ;
     font-size: 1.25em;
 }
 
+
+/* main settings */
+
+
+main {
+    margin-bottom: auto; /* push following elements (footer) to the bottom */
+}
+
+.welcome {
+    margin: 2em;
+    color: steelblue;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.welcome .symbol {
+    font-size: 1.5em;
+    color: cadetBlue;
+}
+
+.welcome-text-0 {
+    font-size: 2.5em;
+    font-style: oblique;
+    color: cadetBlue;
+}
+
+.welcome-text-2 {
+    padding-left: .5em;
+}
+
+.welcome > div {
+    margin: 1em;
+    min-width: 300px;
+    max-width: 300px;
+    border: 1px dotted cadetblue;
+    padding: 1em;
+    flex: 1;
+}
+
+.welcome > div:nth-child(1) {
+    border: 0;
+    min-width: 100%;
+    max-width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.welcome > div:nth-child(1) > div {
+    text-align: left;
+}
+
 .links_menu {
-    padding-left: 3em;
-    padding-bottom: 1em;
+    margin: 2em;
+    margin-left: 4em;
 }
 
 .links_menu span {
     margin-right: .5em;
     padding: .25em .75em;
-    border: 1px solid indianred;
-    color: indianred;
+    border: 1px solid cadetBlue;
+    color: cadetBlue;
     font-size: .90em;
     font-weight: 600;
 }
 
+.links_menu span:hover {
+    background-color: cadetBlue;
+    color: Cornsilk;
+    -webkit-transition: background-color 1000ms linear;
+    -moz-transition: background-color 1000ms linear;
+    -o-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    transition: background-color 1000ms linear;
+}
+
 .links_menu span.focus {
-    background-color: indianred;
-    color: BurlyWood;
-}
-
-main {
-    margin-bottom: auto; /* push following elements to the bottom */
-}
-
-.footer {
-    margin-top: auto; /* push itself and following elements to the bottom */
-    padding: .75em 1.5em;
-    text-align: right;
-    font-size: 0.8;
+    background-color: cadetBlue;
+    color: Cornsilk;
 }
 
 ul {
-    /* border: 1px solid black; */
     display: flex;
 	flex-wrap: wrap;
     justify-content: center;
@@ -108,23 +169,15 @@ ul {
 
 ul > div {
     margin: 1em;
-    /* setting width, results the same height to all items 
-    /* width: 100%; */
-    /* setting flex, cancels the justify-content setting
-    /* flex: 1; */
 }
 
 ul > div > a {
-    /* setting height, results the same height to all items 
-    /* height: 100%; */
     display: inline-block;
 }
 
 .tile {
-    /* setting height, results the same height to all items 
-    /* height: 100%; */
     width: 304px;
-    border: 2px solid burlywood;
+    border: 2px solid Cornsilk;
     background-color: lightsteelblue;
 }
 
@@ -142,11 +195,19 @@ ul > div > a {
 
 .tile .map {
     padding: .25em 0;
-    /* overflow: hidden; */
 }
 
 .tile .info {
     padding: 0 8px 16px 8px;
     font-size: .85em;
     color: #060606;
+}
+
+/* footer settings */
+
+.footer {
+    margin-top: auto; /* push itself and following elements to the bottom */
+    padding: .75em 1.5em;
+    text-align: right;
+    font-size: 0.8;
 }

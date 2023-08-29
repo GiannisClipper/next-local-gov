@@ -1,7 +1,7 @@
 import * as topojsonClient from 'topojson-client/dist/topojson-client';
 import { useRouter } from "next/router";
 import DataHandler from "@/helpers/DataHandler";
-import { LinksMenu, LinkPeriph, LinkPeriphIdNomoi, LinkPeriphIdNomoiIdDhmoi } from "@/components/Links";
+import { LinksMenu, LinkPeriph, LinkPeriphIdNomoi } from "@/components/Links";
 import MapViewer from "@/components/MapViewer";
 
 function NomoiMap( { periphereia, nomoi, topojson } ) {

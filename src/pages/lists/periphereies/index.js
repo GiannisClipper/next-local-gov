@@ -1,6 +1,6 @@
 import Link from "next/link";
 import * as topojsonClient from 'topojson-client/dist/topojson-client';
-import { LinksMenu, LinkPeriph, LinkPeriphIdNomoi, LinkPeriphIdNomoiIdDhmoi } from "@/components/Links";
+import { LinksMenu, LinkPeriph } from "@/components/Links";
 import Tile from "@/components/Tile";
 import DataHandler from "@/helpers/DataHandler";
 //import { LinkPeriph } from "./[periph_id]/nomoi";
