@@ -28,7 +28,6 @@ body {
     max-width: 1360px;
     min-width: 95vw;
     min-height: 100vh;
-    /* background-color: Cornsilk; */
     background-color: Cornsilk;
     color: cadetBlue;
     display: flex;
@@ -51,7 +50,6 @@ body {
     border: 1px solid cadetBlue;
     padding: .5em 1.25em;
     color: cadetBlue;
-    rotate: -4deg;
 }
 
 .header div:hover {
@@ -70,15 +68,20 @@ body {
 }
 
 .header .home {
-    font-size: 1.5em;;
+    font-size: 1.5em;
+    rotate: -4deg;
 }
 
 .header .lists,
 .header .maps {
     border: 1px solid ;
     font-size: 1.25em;
+    rotate: -3deg;
 }
 
+.header .maps {
+    rotate: -2deg;
+}
 
 /* main settings */
 
@@ -133,14 +136,19 @@ main {
 }
 
 .links_menu {
+    /* min-width: 100%;
+    max-width: 100%; */
     margin: 2em;
     margin-left: 4em;
+    /* background-color: cadetblue; */
+    /* overflow: hidden; */
 }
 
 .links_menu span {
     margin-right: .5em;
     padding: .25em .75em;
     border: 1px solid cadetBlue;
+    /* background-color: Cornsilk; */
     color: cadetBlue;
     font-size: .90em;
     font-weight: 600;
