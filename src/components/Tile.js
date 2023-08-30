@@ -1,6 +1,10 @@
-import SimpleMapViewer from "@/components/SimpleMapViewer";
+import MapViewer, { getMapSetup, getPathElements, getFocusPathAbility } from "@/components/MapViewer";
 
-function Tile( { id, name, info, hasFocus, geojson } ) {
+function Tile( { id, name, info, shouldFocus, geojson } ) {
+
+    const mapSetup = getMapSetup( { width: 300, height: 300, geojson} );
+    const focusPathAbility = getFocusPathAbility( { shouldFocus } );
+    const pathElements = getPathElements( { abilities: [ focusPathAbility ] } );
 
     return (
         <li className="tile">
@@ -9,12 +13,11 @@ function Tile( { id, name, info, hasFocus, geojson } ) {
             </div>
 
             <div className="map">
-                <SimpleMapViewer
+                <MapViewer 
                     id={`id-${id}`}
-                    geojson={geojson}
-                    hasFocus={hasFocus}
-                    // strokeFunc={attrStrokeHandler}
-                    // fillFunc={attrFillHandler}
+                    className="simple-map-viewer"
+                    mapSetup={ mapSetup }
+                    mapElements={ [ pathElements ] }
                 />
             </div>
 

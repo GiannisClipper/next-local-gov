@@ -20,7 +20,7 @@ function DhmoiList( { periphereia, nomos, dhmoi, topojson } ) {
         <LinksMenu>
             <LinkPeriph domain="lists" />
             <LinkPeriphIdNomoi domain="lists" periph_id={periph_id} periph_name={periph_name} />
-            <LinkPeriphIdNomoiIdDhmoi focus={true} domain="lists" periph_id={periph_id} periph_name={periph_name} nomos_id={nomos_id} nomos_name={nomos_name} />
+            <LinkPeriphIdNomoiIdDhmoi focused={true} domain="lists" periph_id={periph_id} periph_name={periph_name} nomos_id={nomos_id} nomos_name={nomos_name} />
         </LinksMenu>
 
         <ul className="flex-container">
@@ -28,7 +28,7 @@ function DhmoiList( { periphereia, nomos, dhmoi, topojson } ) {
             dhmoi.map( dhmos => {
 
                 const { id, name, info } = dhmos;
-                const hasFocus = d => d.properties.NAME === name;
+                const shouldFocus = d => d.properties.NAME === name;
                 key++;
 
                 return (
@@ -37,7 +37,7 @@ function DhmoiList( { periphereia, nomos, dhmoi, topojson } ) {
                             id={id}
                             name={name}
                             info={info}
-                            hasFocus={hasFocus}
+                            shouldFocus={shouldFocus}
                             geojson={geojson}
                         />
                     </div>

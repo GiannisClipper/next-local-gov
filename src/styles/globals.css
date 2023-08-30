@@ -26,7 +26,7 @@ body {
 
 .layout {
     max-width: 1360px;
-    min-width: 95vw;
+    min-width: 96vw;
     min-height: 100vh;
     background-color: Cornsilk;
     color: cadetBlue;
@@ -34,6 +34,9 @@ body {
     flex-direction: column;
 }
 
+.clickable {
+    cursor: pointer;
+}
 
 /* header settings */
 
@@ -62,7 +65,7 @@ body {
     transition: background-color 1000ms linear;
 }
 
-.header div.focus {
+.header div.focused {
     background-color: cadetBlue;
     color: Cornsilk;
 }
@@ -164,7 +167,7 @@ main {
     transition: background-color 1000ms linear;
 }
 
-.links_menu span.focus {
+.links_menu span.focused {
     background-color: cadetBlue;
     color: Cornsilk;
 }
@@ -191,6 +194,11 @@ ul > div > a {
 
 .tile:hover {
     border: 2px solid steelblue;
+    -webkit-transition: border 600ms linear;
+    -moz-transition: border 600ms linear;
+    -o-transition: border 600ms linear;
+    -ms-transition: border 600ms linear;
+    transition: border 600ms linear;
 }
 
 .tile .title {
@@ -220,43 +228,44 @@ ul > div > a {
     font-size: 0.8rem;
 }
 
-.svg-path {
-    stroke-width: .9;
-    stroke: steelblue;
-    fill: white;
+.full-map-viewer {
+    text-align: center;
 }
 
-.svg-path.focus {
-    fill: lightsteelblue;
-}
-
-.svg-text {
-    font-size: 0.66rem;
-    stroke-width: .9;
-    stroke: steelblue;
+.full-map-viewer svg {
+    border: 1px solid cadetblue;
 }
 
 .svg-path {
     stroke-width: .9;
     stroke: steelblue;
     fill: white;
-}
-
-.svg-path.focus {
-    fill: lightsteelblue;
-}
-
-.svg-text {
-    font-size: 0.66rem;
-    stroke-width: .9;
-    stroke: steelblue;
 }
 
 .simple-map-viewer .svg-path {
     stroke: #333333;
 }
 
-.simple-map-viewer .svg-path.focus {
+.svg-path.focused {
     fill: steelblue;
 }
 
+.svg-path.hovered {
+    fill: lightsteelblue;
+    -webkit-transition: fill 600ms linear;
+    -moz-transition: fill 600ms linear;
+    -o-transition: fill 600ms linear;
+    -ms-transition: fill 600ms linear;
+    transition: fill 600ms linear;
+}
+
+.svg-path.clicked {
+    fill: steelblue;
+    cursor: wait;
+}
+
+.svg-text {
+    font-size: 0.66rem;
+    stroke-width: .9;
+    stroke: steelblue;
+}

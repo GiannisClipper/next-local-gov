@@ -1,30 +1,45 @@
 import * as topojsonClient from 'topojson-client/dist/topojson-client';
 import DataHandler from "@/helpers/DataHandler";
 import { LinksMenu, LinkPeriph, LinkPeriphIdNomoi, LinkPeriphIdNomoiIdDhmoi } from "@/components/Links";
-import FullMapViewer from "@/components/FullMapViewer";
+import MapViewer, { 
+    getMapSetup,
+    getPathElements,
+    getTextElements,
+    getHoverPathAbility,
+    getZoomAbility
+} from "@/components/MapViewer";
 
 function DhmoiMap( { periphereia, nomos, topojson } ) {
 
     const geojson = topojsonClient.feature( topojson, topojson.objects.dhmoi_okxe );
-    
     const periph_id = periphereia.id;
     const periph_name = periphereia.name;
     const nomos_id = nomos.id;
     const nomos_name = nomos.name;
+
+    const mapSetup = getMapSetup( { width: 800, height: 600, geojson} );
+
+    const hoverPathAbility = getHoverPathAbility( {} );
+    const pathElements = getPathElements( { abilities: [ hoverPathAbility ] } );
+
+    const getTextValue = d => d.properties.NAME;
+    const textElements = getTextElements( { getTextValue } );
+
+    const zoomAbility = getZoomAbility( { scaleExtent: [ 1, 10 ] } );
 
     return (
         <>
         <LinksMenu>
             <LinkPeriph domain="maps"/>
             <LinkPeriphIdNomoi domain="maps" periph_id={periph_id} periph_name={periph_name} />
-            <LinkPeriphIdNomoiIdDhmoi focus={true} domain="maps" periph_id={periph_id} periph_name={periph_name} nomos_id={nomos_id} nomos_name={nomos_name} />
+            <LinkPeriphIdNomoiIdDhmoi focused={true} domain="maps" periph_id={periph_id} periph_name={periph_name} nomos_id={nomos_id} nomos_name={nomos_name} />
         </LinksMenu>
 
-        <FullMapViewer 
-            width={800} 
-            height={600} 
-            geojson={geojson}
-            getTextValue={ d => d.properties.NAME }
+        <MapViewer 
+            className="full-map-viewer"
+            mapSetup={ mapSetup }
+            mapElements={ [ pathElements, textElements ] }
+            zoomAbility={ zoomAbility }
         />
         </>
     );

@@ -16,7 +16,7 @@ function NomoiList( { periphereia, nomoi, topojson } ) {
         <>
         <LinksMenu>
             <LinkPeriph domain="lists"/>
-            <LinkPeriphIdNomoi focus={true} domain="lists" periph_id={periph_id} periph_name={periph_name}/>
+            <LinkPeriphIdNomoi focused={true} domain="lists" periph_id={periph_id} periph_name={periph_name}/>
         </LinksMenu>
 
         <ul className="flex-container">
@@ -24,7 +24,7 @@ function NomoiList( { periphereia, nomoi, topojson } ) {
             nomoi.map( nomos => {
 
                 const { id, name, info } = nomos;
-                const hasFocus = d => d.properties.NAME_GR === name;
+                const shouldFocus = d => d.properties.NAME_GR === name;
 
                 key++;
 
@@ -35,7 +35,7 @@ function NomoiList( { periphereia, nomoi, topojson } ) {
                                 id={id}
                                 name={name}
                                 info={info}
-                                hasFocus={hasFocus}
+                                shouldFocus={shouldFocus}
                                 geojson={geojson}
                             />
                         </Link>

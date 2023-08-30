@@ -13,7 +13,7 @@ function PeriphList( { periphereies, topojson } ) {
     return (
         <>
         <LinksMenu>
-            <LinkPeriph focus={true} domain="lists" />
+            <LinkPeriph focused={true} domain="lists" />
         </LinksMenu>
 
         <ul className="flex-container">
@@ -21,7 +21,7 @@ function PeriphList( { periphereies, topojson } ) {
             periphereies.map( periphereia => {
 
                 const { id, name, info } = periphereia;
-                const hasFocus = d => d.properties.PER === name;
+                const shouldFocus = d => d.properties.PER === name;
                 key++;
 
                 return (
@@ -31,7 +31,7 @@ function PeriphList( { periphereies, topojson } ) {
                                 id={id}
                                 name={name}
                                 info={info}
-                                hasFocus={hasFocus}
+                                shouldFocus={shouldFocus}
                                 geojson={geojson}
                             />
                         </Link>
