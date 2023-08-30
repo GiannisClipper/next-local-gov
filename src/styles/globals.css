@@ -217,5 +217,46 @@ ul > div > a {
     margin-top: auto; /* push itself and following elements to the bottom */
     padding: .75em 1.5em;
     text-align: right;
-    font-size: 0.8;
+    font-size: 0.8rem;
 }
+
+.svg-path {
+    stroke-width: .9;
+    stroke: steelblue;
+    fill: white;
+}
+
+.svg-path.focus {
+    fill: lightsteelblue;
+}
+
+.svg-text {
+    font-size: 0.66rem;
+    stroke-width: .9;
+    stroke: steelblue;
+}
+
+.svg-path {
+    stroke-width: .9;
+    stroke: steelblue;
+    fill: white;
+}
+
+.svg-path.focus {
+    fill: lightsteelblue;
+}
+
+.svg-text {
+    font-size: 0.66rem;
+    stroke-width: .9;
+    stroke: steelblue;
+}
+
+.simple-map-viewer .svg-path {
+    stroke: #333333;
+}
+
+.simple-map-viewer .svg-path.focus {
+    fill: steelblue;
+}
+

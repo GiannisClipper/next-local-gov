@@ -24,8 +24,8 @@ function NomoiList( { periphereia, nomoi, topojson } ) {
             nomoi.map( nomos => {
 
                 const { id, name, info } = nomos;
-                const attrStrokeHandler = d => d.properties.NAME_GR !== name ? "#333333" : "#333333";
-                const attrFillHandler = d => d.properties.NAME_GR !== name ? "white" : "steelblue";
+                const hasFocus = d => d.properties.NAME_GR === name;
+
                 key++;
 
                 return (
@@ -35,9 +35,8 @@ function NomoiList( { periphereia, nomoi, topojson } ) {
                                 id={id}
                                 name={name}
                                 info={info}
+                                hasFocus={hasFocus}
                                 geojson={geojson}
-                                attrStrokeHandler={attrStrokeHandler}
-                                attrFillHandler={attrFillHandler}
                             />
                         </Link>
                     </div>

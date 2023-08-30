@@ -3,7 +3,6 @@ import * as topojsonClient from 'topojson-client/dist/topojson-client';
 import { LinksMenu, LinkPeriph } from "@/components/Links";
 import Tile from "@/components/Tile";
 import DataHandler from "@/helpers/DataHandler";
-//import { LinkPeriph } from "./[periph_id]/nomoi";
 
 function PeriphList( { periphereies, topojson } ) {
 
@@ -22,8 +21,7 @@ function PeriphList( { periphereies, topojson } ) {
             periphereies.map( periphereia => {
 
                 const { id, name, info } = periphereia;
-                const attrStrokeHandler = d => d.properties.PER !== name ? "#333333" : "#333333";
-                const attrFillHandler = d => d.properties.PER !== name ? "white" : "steelblue";
+                const hasFocus = d => d.properties.PER === name;
                 key++;
 
                 return (
@@ -33,9 +31,8 @@ function PeriphList( { periphereies, topojson } ) {
                                 id={id}
                                 name={name}
                                 info={info}
+                                hasFocus={hasFocus}
                                 geojson={geojson}
-                                attrStrokeHandler={attrStrokeHandler}
-                                attrFillHandler={attrFillHandler}
                             />
                         </Link>
                     </div>

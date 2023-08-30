@@ -2,7 +2,7 @@ import * as topojsonClient from 'topojson-client/dist/topojson-client';
 import { useRouter } from "next/router";
 import DataHandler from "@/helpers/DataHandler";
 import { LinksMenu, LinkPeriph, LinkPeriphIdNomoi } from "@/components/Links";
-import MapViewer from "@/components/MapViewer";
+import FullMapViewer from "@/components/FullMapViewer";
 
 function NomoiMap( { periphereia, nomoi, topojson } ) {
 
@@ -10,7 +10,7 @@ function NomoiMap( { periphereia, nomoi, topojson } ) {
     const periph_id = periphereia.id;
     const periph_name = periphereia.name;
     const router = useRouter();
-    const onClickHandler = d => {
+    const onClickPath = d => {
         const nomoi_id = nomoi.find( n => d.properties.NAME_GR === n.name ).id;
         router.push( `/maps/periphereies/${periph_id}/nomoi/${nomoi_id}/dhmoi` );
     };
@@ -22,14 +22,12 @@ function NomoiMap( { periphereia, nomoi, topojson } ) {
             <LinkPeriphIdNomoi focus={true} domain="maps" periph_id={periph_id} periph_name={periph_name}/>
         </LinksMenu>
 
-        <MapViewer 
+        <FullMapViewer 
             width={800} 
             height={600} 
             geojson={geojson}
-            // pathStrokec={ ( d ) => d.properties.NAME_GR !== name ? "#333333" : "#333333" }
-            // pathFill={ ( d ) => d.properties.NAME_GR !== name ? "white" : "steelblue" }
-            textProp={ d => d.properties.NAME_GR }
-            onClickHandler={ onClickHandler }
+            onClickPath={ onClickPath }
+            getTextValue={ d => d.properties.NAME_GR }
         />
         </>
     );

@@ -1,6 +1,6 @@
-import MapSimpleViewer from "@/components/MapSimpleViewer";
+import SimpleMapViewer from "@/components/SimpleMapViewer";
 
-function Tile( { id, name, info, geojson, attrStrokeHandler, attrFillHandler } ) {
+function Tile( { id, name, info, hasFocus, geojson } ) {
 
     return (
         <li className="tile">
@@ -9,13 +9,12 @@ function Tile( { id, name, info, geojson, attrStrokeHandler, attrFillHandler } )
             </div>
 
             <div className="map">
-                <MapSimpleViewer
-                    id={id} 
-                    width={300} 
-                    height={300} 
+                <SimpleMapViewer
+                    id={`id-${id}`}
                     geojson={geojson}
-                    strokeFunc={attrStrokeHandler}
-                    fillFunc={attrFillHandler}
+                    hasFocus={hasFocus}
+                    // strokeFunc={attrStrokeHandler}
+                    // fillFunc={attrFillHandler}
                 />
             </div>
 

@@ -1,7 +1,7 @@
 import * as topojsonClient from 'topojson-client/dist/topojson-client';
 import DataHandler from "@/helpers/DataHandler";
 import { LinksMenu, LinkPeriph, LinkPeriphIdNomoi, LinkPeriphIdNomoiIdDhmoi } from "@/components/Links";
-import MapViewer from "@/components/MapViewer";
+import FullMapViewer from "@/components/FullMapViewer";
 
 function DhmoiMap( { periphereia, nomos, topojson } ) {
 
@@ -20,13 +20,11 @@ function DhmoiMap( { periphereia, nomos, topojson } ) {
             <LinkPeriphIdNomoiIdDhmoi focus={true} domain="maps" periph_id={periph_id} periph_name={periph_name} nomos_id={nomos_id} nomos_name={nomos_name} />
         </LinksMenu>
 
-        <MapViewer 
+        <FullMapViewer 
             width={800} 
             height={600} 
             geojson={geojson}
-            // pathStrokec={ ( d ) => d.properties.NAME_GR !== name ? "#333333" : "#333333" }
-            // pathFill={ ( d ) => d.properties.NAME_GR !== name ? "white" : "steelblue" }
-            textProp={ d => d.properties.NAME }
+            getTextValue={ d => d.properties.NAME }
         />
         </>
     );
