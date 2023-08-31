@@ -16,6 +16,7 @@ function DhmoiMap( { periphereia, nomos, topojson } ) {
     const periph_name = periphereia.name;
     const nomos_id = nomos.id;
     const nomos_name = nomos.name;
+    const nomos_autonomous = nomos.autonomous;
 
     const mapSetup = getMapSetup( { width: 800, height: 600, geojson} );
 
@@ -32,7 +33,10 @@ function DhmoiMap( { periphereia, nomos, topojson } ) {
         <LinksMenu>
             <LinkPeriph domain="maps"/>
             <LinkPeriphIdNomoi domain="maps" periph_id={periph_id} periph_name={periph_name} />
-            <LinkPeriphIdNomoiIdDhmoi focused={true} domain="maps" periph_id={periph_id} periph_name={periph_name} nomos_id={nomos_id} nomos_name={nomos_name} />
+            <LinkPeriphIdNomoiIdDhmoi focused={true} domain="maps" 
+                periph_id={periph_id} periph_name={periph_name} 
+                nomos_id={nomos_id} nomos_name={nomos_name} nomos_autonomous={nomos_autonomous}
+            />
         </LinksMenu>
 
         <MapViewer 

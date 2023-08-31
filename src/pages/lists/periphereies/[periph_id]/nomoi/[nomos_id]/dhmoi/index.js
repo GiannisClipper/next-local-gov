@@ -7,11 +7,11 @@ import DataHandler from "@/helpers/DataHandler";
 function DhmoiList( { periphereia, nomos, dhmoi, topojson } ) {
 
     const geojson = topojsonClient.feature( topojson, topojson.objects.dhmoi_okxe );
-
     const periph_id = periphereia.id;
     const periph_name = periphereia.name;
     const nomos_id = nomos.id;
     const nomos_name = nomos.name;
+    const nomos_autonomous = nomos.autonomous;
 
     let key = 0;
 
@@ -20,7 +20,10 @@ function DhmoiList( { periphereia, nomos, dhmoi, topojson } ) {
         <LinksMenu>
             <LinkPeriph domain="lists" />
             <LinkPeriphIdNomoi domain="lists" periph_id={periph_id} periph_name={periph_name} />
-            <LinkPeriphIdNomoiIdDhmoi focused={true} domain="lists" periph_id={periph_id} periph_name={periph_name} nomos_id={nomos_id} nomos_name={nomos_name} />
+            <LinkPeriphIdNomoiIdDhmoi focused={true} domain="lists" 
+                periph_id={periph_id} periph_name={periph_name} 
+                nomos_id={nomos_id} nomos_name={nomos_name} nomos_autonomous={nomos_autonomous}
+            />
         </LinksMenu>
 
         <ul className="flex-container">
@@ -86,12 +89,13 @@ export async function getStaticProps( context ) {
     // add info property
 
     dhmoi.forEach( d => {
-        const { name, area, pop2021 } = d;
+        const { name, area, areaRatio, pop2021, pop2021Ratio } = d;
         if ( ! d.info ) {
-            d.info = `Ο δήμος ${name} έχει έκταση ${area} τ.χμ. και πληθυσμό ${pop2021} κατοίκους (απογραφή 2021).`;
+            d.info = `Ο δήμος ${name} έχει`;
         } else {
-            d.info = d.info + ` Έχει έκταση ${area} τ.χμ. και πληθυσμό ${pop2021} κατοίκους (απογραφή 2021).`;
+            d.info = d.info + ` Έχει`;
         }
+        d.info += ` έκταση ${area.toFixed( 1 )} τ.χμ. (${areaRatio.toFixed( 1 )}%) και πληθυσμό ${pop2021} (${pop2021Ratio.toFixed( 1 )}%) κατοίκους (απογραφή 2021).`;
     } );
 
     // select topojson data

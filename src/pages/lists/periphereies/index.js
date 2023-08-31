@@ -58,7 +58,7 @@ export async function getStaticProps() {
 
     periphereies.forEach( p => {
 
-        const { name, area, pop2021 } = p;
+        const { name, area, areaRatio, pop2021, pop2021Ratio } = p;
         if ( ! p.info ) {
             const nomoi = dh.nomoi.findMany( n => n.periph_name === p.name );
             const names = nomoi.map( n => n.name );
@@ -71,7 +71,7 @@ export async function getStaticProps() {
                 p.info = `Η περιφέρεια ${name} περιλαμβάνει τους νομούς ${names.join( ', ' )}.`;
             }
         }
-        p.info += `Έχει έκταση ${area.toFixed( 1 )} τ.χμ. και πληθυσμό ${pop2021} κατοίκους (απογραφή 2021).`;
+        p.info += ` Έχει έκταση ${area.toFixed( 1 )} τ.χμ. (${areaRatio.toFixed( 1 )}%) και πληθυσμό ${pop2021} (${pop2021Ratio.toFixed( 1 )}%) κατοίκους (απογραφή 2021).`;
 
     } );
 

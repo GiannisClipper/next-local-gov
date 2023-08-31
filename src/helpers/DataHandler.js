@@ -140,11 +140,16 @@ function DataHandler() {
 
     // sum areas and populations
 
+    this.dhmoi._data.forEach( d => {
+        d.areaRatio = 0; 
+        d.pop2021Ratio = 0; 
+    } );
+
     const nomoiIndex = {};
-    this.nomoi._data.forEach( n => nomoiIndex[ n.name ] = n );
     this.nomoi._data.forEach( n => {
-        nomoiIndex[ n.name ].area = 0; 
-        nomoiIndex[ n.name ].pop2021 = 0; 
+        nomoiIndex[ n.name ] = n;
+        n.area = 0; 
+        n.pop2021 = 0; 
     } );
     this.dhmoi._data.forEach( d => {
         nomoiIndex[ d.nomos_name ].area += d.area;
@@ -152,14 +157,33 @@ function DataHandler() {
     } );
 
     const periphIndex = {};
-    this.periphereies._data.forEach( p => periphIndex[ p.name ] = p );
     this.periphereies._data.forEach( p => {
-        periphIndex[ p.name ].area = 0; 
-        periphIndex[ p.name ].pop2021 = 0; 
+        periphIndex[ p.name ] = p;
+        p.area = 0; 
+        p.pop2021 = 0;
     } );
     this.nomoi._data.forEach( n => {
         periphIndex[ n.periph_name ].area += n.area;
         periphIndex[ n.periph_name ].pop2021 += n.pop2021;
+    } );
+
+    // compute ratio of areas and population
+
+    const totalArea = this.periphereies._data.reduce( ( total, p ) => total += p.area, 0 );
+    const totalPop2021 = this.periphereies._data.reduce( ( total, p ) => total += p.pop2021, 0 );
+    this.periphereies._data.forEach( p => {
+        p.areaRatio = p.area / totalArea * 100; 
+        p.pop2021Ratio = p.pop2021 / totalPop2021 * 100;
+    } );
+
+    this.nomoi._data.forEach( n => {
+        n.areaRatio = n.area / periphIndex[ n.periph_name ].area * 100; 
+        n.pop2021Ratio = n.pop2021 / periphIndex[ n.periph_name ].pop2021 * 100;
+    } );
+
+    this.dhmoi._data.forEach( d => {
+        d.areaRatio = d.area / nomoiIndex[ d.nomos_name ].area * 100;
+        d.pop2021Ratio = d.pop2021 / nomoiIndex[ d.nomos_name ].pop2021 * 100;
     } );
 }
 
