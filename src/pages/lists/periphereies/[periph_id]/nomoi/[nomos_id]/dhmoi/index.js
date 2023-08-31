@@ -11,7 +11,7 @@ function DhmoiList( { periphereia, nomos, dhmoi, topojson } ) {
     const periph_name = periphereia.name;
     const nomos_id = nomos.id;
     const nomos_name = nomos.name;
-    const nomos_autonomous = nomos.autonomous;
+    const nomos_title = nomos.title;
 
     let key = 0;
 
@@ -22,7 +22,7 @@ function DhmoiList( { periphereia, nomos, dhmoi, topojson } ) {
             <LinkPeriphIdNomoi domain="lists" periph_id={periph_id} periph_name={periph_name} />
             <LinkPeriphIdNomoiIdDhmoi focused={true} domain="lists" 
                 periph_id={periph_id} periph_name={periph_name} 
-                nomos_id={nomos_id} nomos_name={nomos_name} nomos_autonomous={nomos_autonomous}
+                nomos_id={nomos_id} nomos_name={nomos_name} nomos_title={nomos_title}
             />
         </LinksMenu>
 
@@ -85,18 +85,6 @@ export async function getStaticProps( context ) {
     const periphereia = dh.periphereies.findOne( p => p.id === periph_id );
     const nomos = dh.nomoi.findOne( n => n.id === nomos_id );
     const dhmoi = dh.dhmoi.findMany( d => d.nomos_name === nomos.name );
-
-    // add info property
-
-    dhmoi.forEach( d => {
-        const { name, area, areaRatio, pop2021, pop2021Ratio } = d;
-        if ( ! d.info ) {
-            d.info = `Ο δήμος ${name} έχει`;
-        } else {
-            d.info = d.info + ` Έχει`;
-        }
-        d.info += ` έκταση ${area.toFixed( 1 )} τ.χμ. (${areaRatio.toFixed( 1 )}%) και πληθυσμό ${pop2021} (${pop2021Ratio.toFixed( 1 )}%) κατοίκους (απογραφή 2021).`;
-    } );
 
     // select topojson data
 

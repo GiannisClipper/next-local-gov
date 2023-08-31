@@ -11,15 +11,18 @@ function MapViewer( { id, className, mapSetup, mapElements, zoomAbility } ) {
 
         const { width, height, pathGenerator, geojson } = mapSetup();
 
-        const div = d3.select( `#${id}` );
+        const map = d3.select( `#${id}` );
 
-        const svg = div.append( "svg" )
+        const tooltip = map.append( "div" )
+            .attr( "class", "tooltip hidden" );
+
+        const svg = map.append( "svg" )
             .attr( "width", width )
-            .attr( "height", height )
+            .attr( "height", height );
     
         const g = svg.append( "g" );
 
-        mapElements.forEach( me => me( { g, pathGenerator, geojson } ) );
+        mapElements.forEach( elem => elem( { map, tooltip, svg, g, pathGenerator, geojson } ) );
         
         zoomAbility && zoomAbility( { svg, g } );
 
@@ -45,6 +48,7 @@ function MapViewer( { id, className, mapSetup, mapElements, zoomAbility } ) {
         <>
         <div id={`${id}`} className={`${className}`}>
             {/* <svg width={width} height={height}></svg> */}
+            <div className="tootip hidden"></div>
         </div>
         </>
     );
@@ -78,7 +82,7 @@ function getMapSetup( { width, height, geojson } ) {
 
 function getPathElements( { className, abilities } ) {
 
-    return ( { g, pathGenerator, geojson } ) => {
+    return ( { map, tooltip, svg, g, pathGenerator, geojson } ) => {
 
         className = className || "svg-path";
 
@@ -89,7 +93,7 @@ function getPathElements( { className, abilities } ) {
             .attr( "class", className )
             .attr( "d", pathGenerator )
 
-        abilities && abilities.forEach( a => a( { g } ) );
+        abilities && abilities.forEach( a => a( { tooltip, g } ) );
     }
 }
 
@@ -116,7 +120,7 @@ function getFocusPathAbility( { className, shouldFocus } ) {
 
     return ( { g } ) => {
         g.selectAll( "path" )
-            .classed( className, shouldFocus )
+            .classed( className, shouldFocus );
     }
 }
 
@@ -128,12 +132,34 @@ function getHoverPathAbility( { className } ) {
         g.selectAll( "path" )
             .on( 'mouseover', function( e, d ) {
                 d3.select( this )
-                    .classed( className, true )
+                    .classed( className, true );
             } )
             .on( 'mouseout', function( e, d ) { 
                 d3.select( this )
-                    .classed( className, false )
+                    .classed( className, false );
             } )
+    }
+}
+
+function getTooltipAbility( { leftOffset, topOffset, getTooltipValue } ) {
+
+    return ( { tooltip, g } ) => {
+
+        g.selectAll( "path" )
+            .on( 'mouseenter', function( e, d ) {
+                tooltip
+                    .classed( "hidden", false )
+                    .html( getTooltipValue( d ) );
+            } )
+            // .on( 'mousemove', function( e, d ) {
+            //     tooltip
+            //         .style( "left", ( e.pageX + leftOffset ) + "px") 
+            //         .style( "top", ( e.pageY + topOffset ) + "px");
+            // } )
+            .on( 'mouseleave', function( e, d ) { 
+                tooltip
+                    .classed( "hidden", true );
+            } );
     }
 }
 
@@ -187,6 +213,7 @@ export {
     getTextElements,
     getFocusPathAbility,
     getHoverPathAbility,
+    getTooltipAbility,
     getClickPathAbility,
     getZoomAbility
 };

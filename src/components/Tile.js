@@ -2,7 +2,7 @@ import MapViewer, { getMapSetup, getPathElements, getFocusPathAbility } from "@/
 
 function Tile( { id, name, info, shouldFocus, geojson } ) {
 
-    const mapSetup = getMapSetup( { width: 300, height: 300, geojson} );
+    const mapSetup = getMapSetup( { width: 250, height: 250, geojson } );
     const focusPathAbility = getFocusPathAbility( { shouldFocus } );
     const pathElements = getPathElements( { abilities: [ focusPathAbility ] } );
 

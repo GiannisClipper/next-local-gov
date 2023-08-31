@@ -1,4 +1,5 @@
 const fs = require( 'fs' );
+import { removePunctuation } from "@/helpers/strings";
 
 
 // gegneric parent class
@@ -88,7 +89,7 @@ function Dhmoi( csvFilename, topojsonFilename ) {
 
     const csvParser = row => {
         let [ id, name, nomos_name, area, pop2021 ] = row;
-        name = name.toUpperCase();
+        name = removePunctuation( name.toUpperCase() );
         area = parseFloat( area );
         pop2021 = parseInt( pop2021 );
         return { id, name, nomos_name, area, pop2021 }; 
@@ -185,6 +186,68 @@ function DataHandler() {
         d.areaRatio = d.area / nomoiIndex[ d.nomos_name ].area * 100;
         d.pop2021Ratio = d.pop2021 / nomoiIndex[ d.nomos_name ].pop2021 * 100;
     } );
+
+    // include info
+
+    this.periphereies.findAll().forEach( p => {
+
+        const { name, area, areaRatio, pop2021, pop2021Ratio } = p;
+        let { info } = p;
+
+        if ( ! info ) {
+            const nomoi = this.nomoi.findMany( n => n.periph_name === p.name );
+            const names = nomoi.map( n => n.name );
+
+            if ( names.length === 0 ) {
+                info = "";
+            } else if ( names.length === 1 ) {
+                info = `Η περιφέρεια ${name} περιλαμβάνει το νομό ${names[ 0 ]}.`;
+            } else {
+                info = `Η περιφέρεια ${name} περιλαμβάνει τους νομούς ${names.join( ', ' )}.`;
+            }
+        }
+        info += ` Έχει έκταση ${area.toFixed( 1 )} τ.χμ. (${areaRatio.toFixed( 1 )}% της επικράτειας) και πληθυσμό ${pop2021} κατοίκους (${pop2021Ratio.toFixed( 1 )}% της επικράτειας).`;
+
+        p.info = info;
+    } );
+
+    this.nomoi.findAll().forEach( n => {
+
+        const { name, area, areaRatio, pop2021, pop2021Ratio } = n;
+        let { info } = n;
+
+        if ( ! info ) {
+            const dhmoi = this.dhmoi.findMany( d => d.nomos_name === n.name );
+            const names = dhmoi.map( n => n.name );
+
+            if ( names.length === 0 ) {
+                info = "";
+            } else if ( names.length === 1 ) {
+                info = `Ο νομός ${name} περιλαμβάνει το δήμο ${names[ 0 ]}.`;
+            } else {
+                info = `Ο νομός ${name} περιλαμβάνει τους δήμους ${names.join( ', ' )}.`;
+            }
+        }
+        info += ` Έχει έκταση ${area.toFixed( 1 )} τ.χμ. (${areaRatio.toFixed( 1 )}% της περιφέρειας) και πληθυσμό ${pop2021} κατοίκους (${pop2021Ratio.toFixed( 1 )}% της περιφέρειας).`;
+
+        n.info = info;
+    } );
+
+    this.dhmoi.findAll().forEach( d => {
+    
+        const { name, area, areaRatio, pop2021, pop2021Ratio } = d;
+        let { info } = d;
+    
+        if ( ! info ) {
+            info = `Ο δήμος ${name} έχει`;
+        } else {
+            info = info + ` Έχει`;
+        }
+        info += ` έκταση ${area.toFixed( 1 )} τ.χμ. (${areaRatio.toFixed( 1 )}% του νομού) και πληθυσμό ${pop2021} κατοίκους (${pop2021Ratio.toFixed( 1 )}% του νομού).`;
+
+        d.info = info;
+    } );
+
 }
 
 export default DataHandler;

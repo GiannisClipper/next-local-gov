@@ -73,26 +73,6 @@ export async function getStaticProps( context ) {
     const periphereia = dh.periphereies.findOne( p => p.id === periph_id );
     const nomoi = dh.nomoi.findMany( n => n.periph_name === periphereia.name );
 
-    // add info property
-
-    nomoi.forEach( n => {
-
-        const { name, area, areaRatio, pop2021, pop2021Ratio } = n;
-        if ( ! n.info ) {
-            const dhmoi = dh.dhmoi.findMany( d => d.nomos_name === n.name );
-            const names = dhmoi.map( n => n.name );
-
-            if ( names.length === 0 ) {
-                n.info = "";
-            } else if ( names.length === 1 ) {
-                n.info = `Ο νομός ${name} περιλαμβάνει το δήμο ${names[ 0 ]}.`;
-            } else {
-                n.info = `Ο νομός ${name} περιλαμβάνει τους δήμους ${names.join( ', ' )}.`;
-            }
-        }
-        n.info += ` Έχει έκταση ${area.toFixed( 1 )} τ.χμ. (${areaRatio.toFixed( 1 )}%) και πληθυσμό ${pop2021} (${pop2021Ratio.toFixed( 1 )}%) κατοίκους (απογραφή 2021).`;
-    } );
-
     // select topojson data
 
     const topojson = dh.nomoi.readTopojson();

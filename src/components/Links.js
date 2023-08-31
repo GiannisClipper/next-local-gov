@@ -18,9 +18,9 @@ function LinkPeriphIdNomoi( { focused, domain, periph_id, periph_name } ) {
     );
 }
 
-function LinkPeriphIdNomoiIdDhmoi( { focused, domain, periph_id, nomos_id, nomos_name, nomos_autonomous } ) {
+function LinkPeriphIdNomoiIdDhmoi( { focused, domain, periph_id, nomos_id, nomos_name, nomos_title } ) {
     const className = focused ? "focused" : "";
-    const label = ! nomos_autonomous ? `ΔΗΜΟΙ ΝΟΜΟΥ ${nomos_name}` : `${nomos_name}`;
+    const label = nomos_title ? `${nomos_title}` : `ΔΗΜΟΙ ΝΟΜΟΥ ${nomos_name}`;
     return (
         <Link href={`/${domain}/periphereies/${periph_id}/nomoi/${nomos_id}/dhmoi`}>
             <span className={className}>{ label }</span>

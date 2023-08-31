@@ -1,29 +1,35 @@
 import * as topojsonClient from 'topojson-client/dist/topojson-client';
 import DataHandler from "@/helpers/DataHandler";
+import { removePunctuation } from "@/helpers/strings";
 import { LinksMenu, LinkPeriph, LinkPeriphIdNomoi, LinkPeriphIdNomoiIdDhmoi } from "@/components/Links";
 import MapViewer, { 
     getMapSetup,
     getPathElements,
     getTextElements,
     getHoverPathAbility,
+    getTooltipAbility,
     getZoomAbility
 } from "@/components/MapViewer";
 
-function DhmoiMap( { periphereia, nomos, topojson } ) {
+function DhmoiMap( { periphereia, nomos, dhmoi, topojson } ) {
 
     const geojson = topojsonClient.feature( topojson, topojson.objects.dhmoi_okxe );
     const periph_id = periphereia.id;
     const periph_name = periphereia.name;
     const nomos_id = nomos.id;
     const nomos_name = nomos.name;
-    const nomos_autonomous = nomos.autonomous;
+    const nomos_title = nomos.title;
 
     const mapSetup = getMapSetup( { width: 800, height: 600, geojson} );
 
     const hoverPathAbility = getHoverPathAbility( {} );
-    const pathElements = getPathElements( { abilities: [ hoverPathAbility ] } );
 
-    const getTextValue = d => d.properties.NAME.toUpperCase();
+    const getTooltipValue = d => dhmoi.find( dhm => d.properties.KWD_YPES === dhm.id ).info;
+    const tooltipAbility = getTooltipAbility( { leftOffset: -202, topOffset: -50, getTooltipValue } );
+
+    const pathElements = getPathElements( { abilities: [ hoverPathAbility, tooltipAbility ] } );
+
+    const getTextValue = d => removePunctuation( d.properties.NAME.toUpperCase() );
     const textElements = getTextElements( { getTextValue } );
 
     const zoomAbility = getZoomAbility( { scaleExtent: [ 1, 20 ] } );
@@ -35,7 +41,7 @@ function DhmoiMap( { periphereia, nomos, topojson } ) {
             <LinkPeriphIdNomoi domain="maps" periph_id={periph_id} periph_name={periph_name} />
             <LinkPeriphIdNomoiIdDhmoi focused={true} domain="maps" 
                 periph_id={periph_id} periph_name={periph_name} 
-                nomos_id={nomos_id} nomos_name={nomos_name} nomos_autonomous={nomos_autonomous}
+                nomos_id={nomos_id} nomos_name={nomos_name} nomos_title={nomos_title}
             />
         </LinksMenu>
 

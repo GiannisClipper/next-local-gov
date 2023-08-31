@@ -1,15 +1,16 @@
 import * as topojsonClient from 'topojson-client/dist/topojson-client';
 import { useRouter } from "next/router";
-import DataHandler from "@/helpers/DataHandler";
 import { LinksMenu, LinkPeriph } from "@/components/Links";
 import MapViewer, { 
     getMapSetup,
     getPathElements,
     getTextElements,
     getHoverPathAbility,
+    getTooltipAbility,
     getClickPathAbility,
     getZoomAbility
 } from "@/components/MapViewer";
+import DataHandler from "@/helpers/DataHandler";
 
 function PeriphMap( { periphereies, topojson } ) {
 
@@ -23,8 +24,13 @@ function PeriphMap( { periphereies, topojson } ) {
         router.push( `/maps/periphereies/${periph_id}/nomoi` );
     };
     const clickPathAbility = getClickPathAbility( { clickHandler } );
+
     const hoverPathAbility = getHoverPathAbility( {} );
-    const pathElements = getPathElements( { abilities: [ hoverPathAbility, clickPathAbility ] } );
+
+    const getTooltipValue = d => periphereies.find( p => d.properties.PER === p.name ).info;
+    const tooltipAbility = getTooltipAbility( { leftOffset: -202, topOffset: -50, getTooltipValue } );
+
+    const pathElements = getPathElements( { abilities: [ hoverPathAbility, tooltipAbility, clickPathAbility ] } );
 
     const getTextValue = d => d.properties.PER;
     const textElements = getTextElements( { getTextValue } );

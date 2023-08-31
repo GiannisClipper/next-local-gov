@@ -20,7 +20,7 @@ function PeriphList( { periphereies, topojson } ) {
         {
             periphereies.map( periphereia => {
 
-                const { id, name, info } = periphereia;
+                const { id, name, title, info } = periphereia;
                 const shouldFocus = d => d.properties.PER === name;
                 key++;
 
@@ -29,7 +29,7 @@ function PeriphList( { periphereies, topojson } ) {
                         <Link href={`/lists/periphereies/${id}/nomoi`}>
                             <Tile
                                 id={id}
-                                name={name}
+                                name={title || name}
                                 info={info}
                                 shouldFocus={shouldFocus}
                                 geojson={geojson}
@@ -53,27 +53,6 @@ export async function getStaticProps() {
 
     const dh = new DataHandler();
     const periphereies = dh.periphereies.findAll();
-
-    // add info property
-
-    periphereies.forEach( p => {
-
-        const { name, area, areaRatio, pop2021, pop2021Ratio } = p;
-        if ( ! p.info ) {
-            const nomoi = dh.nomoi.findMany( n => n.periph_name === p.name );
-            const names = nomoi.map( n => n.name );
-
-            if ( names.length === 0 ) {
-                p.info = "";
-            } else if ( names.length === 1 ) {
-                p.info = `Η περιφέρεια ${name} περιλαμβάνει το νομό ${names[ 0 ]}.`;
-            } else {
-                p.info = `Η περιφέρεια ${name} περιλαμβάνει τους νομούς ${names.join( ', ' )}.`;
-            }
-        }
-        p.info += ` Έχει έκταση ${area.toFixed( 1 )} τ.χμ. (${areaRatio.toFixed( 1 )}%) και πληθυσμό ${pop2021} (${pop2021Ratio.toFixed( 1 )}%) κατοίκους (απογραφή 2021).`;
-
-    } );
 
     // select topojson data
 

@@ -7,6 +7,7 @@ import MapViewer, {
     getPathElements,
     getTextElements,
     getHoverPathAbility,
+    getTooltipAbility,
     getClickPathAbility,
     getZoomAbility
 } from "@/components/MapViewer";
@@ -25,9 +26,13 @@ function NomoiMap( { periphereia, nomoi, topojson } ) {
         router.push( `/maps/periphereies/${periph_id}/nomoi/${nomoi_id}/dhmoi` );
     };
     const clickPathAbility = getClickPathAbility( { clickHandler } );
+
     const hoverPathAbility = getHoverPathAbility( {} );
-    const abilities = [ hoverPathAbility, clickPathAbility ];
-    const pathElements = getPathElements( { abilities } );
+
+    const getTooltipValue = d => nomoi.find( n => d.properties.NAME_GR === n.name ).info;
+    const tooltipAbility = getTooltipAbility( { leftOffset: -202, topOffset: -50, getTooltipValue } );
+
+    const pathElements = getPathElements( { abilities: [ hoverPathAbility, tooltipAbility, clickPathAbility ] } );
 
     const getTextValue = d => d.properties.NAME_GR;
     const textElements = getTextElements( { getTextValue } );
