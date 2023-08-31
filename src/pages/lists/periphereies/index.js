@@ -58,6 +58,7 @@ export async function getStaticProps() {
 
     periphereies.forEach( p => {
 
+        const { name, area, pop2021 } = p;
         if ( ! p.info ) {
             const nomoi = dh.nomoi.findMany( n => n.periph_name === p.name );
             const names = nomoi.map( n => n.name );
@@ -65,11 +66,13 @@ export async function getStaticProps() {
             if ( names.length === 0 ) {
                 p.info = "";
             } else if ( names.length === 1 ) {
-                p.info = `Η περιφέρεια ${p.name} περιλαμβάνει το νομό ${names[ 0 ]}.`;
+                p.info = `Η περιφέρεια ${name} περιλαμβάνει το νομό ${names[ 0 ]}.`;
             } else {
-                p.info = `Η περιφέρεια ${p.name} περιλαμβάνει τους νομούς ${names.join( ', ' )}.`;
+                p.info = `Η περιφέρεια ${name} περιλαμβάνει τους νομούς ${names.join( ', ' )}.`;
             }
         }
+        p.info += `Έχει έκταση ${area.toFixed( 1 )} τ.χμ. και πληθυσμό ${pop2021} κατοίκους (απογραφή 2021).`;
+
     } );
 
     // select topojson data

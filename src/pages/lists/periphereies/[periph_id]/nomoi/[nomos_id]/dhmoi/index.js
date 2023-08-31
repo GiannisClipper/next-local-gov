@@ -28,7 +28,7 @@ function DhmoiList( { periphereia, nomos, dhmoi, topojson } ) {
             dhmoi.map( dhmos => {
 
                 const { id, name, info } = dhmos;
-                const shouldFocus = d => d.properties.NAME === name;
+                const shouldFocus = d => d.properties.KWD_YPES === id;
                 key++;
 
                 return (
@@ -86,9 +86,11 @@ export async function getStaticProps( context ) {
     // add info property
 
     dhmoi.forEach( d => {
+        const { name, area, pop2021 } = d;
         if ( ! d.info ) {
-            const { name, area, pop2021 } = d;
-            d.info = `Ο δήμος ${name} έχει έκταση ${area} τ.χμ. και πληθυσμό ${pop2021} κάτοικους (απογραφή 2021).`;
+            d.info = `Ο δήμος ${name} έχει έκταση ${area} τ.χμ. και πληθυσμό ${pop2021} κατοίκους (απογραφή 2021).`;
+        } else {
+            d.info = d.info + ` Έχει έκταση ${area} τ.χμ. και πληθυσμό ${pop2021} κατοίκους (απογραφή 2021).`;
         }
     } );
 

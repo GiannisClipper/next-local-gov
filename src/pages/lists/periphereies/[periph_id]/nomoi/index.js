@@ -77,6 +77,7 @@ export async function getStaticProps( context ) {
 
     nomoi.forEach( n => {
 
+        const { name, area, pop2021 } = n;
         if ( ! n.info ) {
             const dhmoi = dh.dhmoi.findMany( d => d.nomos_name === n.name );
             const names = dhmoi.map( n => n.name );
@@ -84,11 +85,12 @@ export async function getStaticProps( context ) {
             if ( names.length === 0 ) {
                 n.info = "";
             } else if ( names.length === 1 ) {
-                n.info = `Ο νομός ${n.name} περιλαμβάνει το δήμο ${names[ 0 ]}.`;
+                n.info = `Ο νομός ${name} περιλαμβάνει το δήμο ${names[ 0 ]}.`;
             } else {
-                n.info = `Ο νομός ${n.name} περιλαμβάνει τους δήμους ${names.join( ', ' )}.`;
+                n.info = `Ο νομός ${name} περιλαμβάνει τους δήμους ${names.join( ', ' )}.`;
             }
         }
+        n.info += `Έχει έκταση ${area.toFixed( 1 )} τ.χμ. και πληθυσμό ${pop2021} κατοίκους (απογραφή 2021).`;
     } );
 
     // select topojson data

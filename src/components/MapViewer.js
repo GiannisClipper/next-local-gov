@@ -172,7 +172,7 @@ function getZoomAbility( { scaleExtent } ) {
         }
     
         const zoom_behavior = d3.zoom()
-            .scaleExtent( [ 1, 10 ] )
+            .scaleExtent( scaleExtent )
             // .translateExtent( [ 0, 0 ], [ width, height ] )
             .on( 'zoom', onZoomHandler );
     

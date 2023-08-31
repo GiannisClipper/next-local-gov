@@ -22,10 +22,10 @@ function DhmoiMap( { periphereia, nomos, topojson } ) {
     const hoverPathAbility = getHoverPathAbility( {} );
     const pathElements = getPathElements( { abilities: [ hoverPathAbility ] } );
 
-    const getTextValue = d => d.properties.NAME;
+    const getTextValue = d => d.properties.NAME.toUpperCase();
     const textElements = getTextElements( { getTextValue } );
 
-    const zoomAbility = getZoomAbility( { scaleExtent: [ 1, 10 ] } );
+    const zoomAbility = getZoomAbility( { scaleExtent: [ 1, 20 ] } );
 
     return (
         <>
