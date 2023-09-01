@@ -52,6 +52,7 @@ function NomoiMap( { periphereia, nomoi, topojson } ) {
             mapElements={ [ pathElements, textElements ] }
             zoomAbility={ zoomAbility }
         />
+        <div className="zoom-reminder">[ διπλό κλικ για μεγένθυνση ] [ shift + διπλό κλικ για σμίκρυνση ]</div>
         </>
     );
 }

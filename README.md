@@ -1,34 +1,7 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+__Καλώς ήλθατε__, στο  next-local-gov. Το project αφορά σε μια παρουσίαση διαφορετικών βαθμίδων τοπικής αυτοδιοίκησης στην Ελλάδα (__περιφέρειες, νομοί, δήμοι__). Η παρουσίαση είναι ενδεικτική, έχουν συνδυαστεί σύνολα δεδομένων που αναφέρονται σε διαφορετικές φάσεις μεταρρυθμιστικών αλλαγών, συνεπώς υπάρχουν αποκλίσεις από όσα ισχύουν σήμερα.
 
-## Getting Started
+Σκοπός της υλοποίησης ήταν η εκμάθηση και η πρακτική άσκηση σε τεχνολογίες ανάπτυξης web εφαρμογών και ιστοσελίδων, σε συνδυασμό με τη χρήση γεωγραφικών δεδομένων και τη γραφική απεικόνισή τους. Tα γεωγραφικά δεδομένα προέρχονται από ανοικτά δεδομένα στο __geodata.gov.gr__ ενώ συμπληρώθηκαν πληροφορίες και από το __el.wikipedia.org__. Η ανάπτυξη του κώδικα έγινε σε __Next.js (React framework)__, η απεικόνιση των χαρτών με τη __βιβλιοθήκη D3.js__.
 
-First, run the development server:
+Ο κώδικας έχει γίνει deploy στο __vercel.com__ και μπορείτε να τον τρέξετε εδώ: https://next-local-gov.vercel.app/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Στο DEV_NOTES.md μπορείτε να βρείτε links σε χρήσιμα tutorials και άρθρα που σχετίζονται με τις τεχνολογίες που χρησιμοποιήθηκαν στο project.

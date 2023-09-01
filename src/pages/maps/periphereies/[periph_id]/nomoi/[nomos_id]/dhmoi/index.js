@@ -51,6 +51,7 @@ function DhmoiMap( { periphereia, nomos, dhmoi, topojson } ) {
             mapElements={ [ pathElements, textElements ] }
             zoomAbility={ zoomAbility }
         />
+        <div className="zoom-reminder">[ διπλό κλικ για μεγένθυνση ] [ shift + διπλό κλικ για σμίκρυνση ]</div>
         </>
     );
 }

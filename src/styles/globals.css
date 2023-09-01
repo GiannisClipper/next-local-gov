@@ -7,8 +7,9 @@
     padding: 0;
 }
 
-a {
+a, a:hover, a:focus, a:active {
     text-decoration: none;
+    color: inherit;
 }
 
 ul {
@@ -124,13 +125,21 @@ main {
     flex: 1;
 }
 
-.welcome > div:nth-child(1) {
+.welcome > div:nth-child(1),
+.welcome > div:nth-child(5) {
     border: 0;
     min-width: 100%;
     max-width: 100%;
     text-align: center;
     display: flex;
     justify-content: center;
+}
+
+.welcome > div:nth-child(2),
+.welcome > div:nth-child(3),
+.welcome > div:nth-child(4),
+.welcome > div:nth-child(5) {
+    text-align: left;
 }
 
 .welcome > div:nth-child(1) > div {
@@ -223,6 +232,11 @@ ul > div > a {
     border: 1px solid cadetblue;
 }
 
+.zoom-reminder {
+    padding: .25em;
+    font-size: .90em;
+}
+
 .full-map-viewer .tooltip {
     width: 250px;
     position: absolute;
@@ -286,6 +300,6 @@ ul > div > a {
     margin-top: auto; /* push itself and following elements to the bottom */
     padding: .75em 1.5em;
     text-align: right;
-    font-size: 0.85rem;
+    font-size: 0.90rem;
 }
 
