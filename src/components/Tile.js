@@ -1,8 +1,8 @@
 import MapViewer, { getMapSetup, getPathElements, getFocusPathAbility } from "@/components/MapViewer";
 
-function Tile( { id, name, info, shouldFocus, geojson } ) {
+function Tile( { id, name, info, shouldFocus, geojson, zoomFeatures } ) {
 
-    const mapSetup = getMapSetup( { width: 250, height: 250, geojson } );
+    const mapSetup = getMapSetup( { width: 250, height: 250, geojson, zoomFeatures } );
     const focusPathAbility = getFocusPathAbility( { shouldFocus } );
     const pathElements = getPathElements( { abilities: [ focusPathAbility ] } );
 

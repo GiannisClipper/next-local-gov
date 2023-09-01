@@ -30,6 +30,12 @@ function DhmoiList( { periphereia, nomos, dhmoi, topojson } ) {
         {
             dhmoi.map( dhmos => {
 
+                let zoomFeatures = null;
+                if ( nomos.zoomDhmoi ) {
+                    const ids = nomos.zoomDhmoi.reduce( ( result, dhmoi ) => result = dhmoi.includes( dhmos.id ) ? dhmoi : result, [] );
+                    zoomFeatures = geojson.features.filter( f => ids.includes( f.properties.KWD_YPES ) );
+                }
+
                 const { id, name, info } = dhmos;
                 const shouldFocus = d => d.properties.KWD_YPES === id;
                 key++;
@@ -42,6 +48,7 @@ function DhmoiList( { periphereia, nomos, dhmoi, topojson } ) {
                             info={info}
                             shouldFocus={shouldFocus}
                             geojson={geojson}
+                            zoomFeatures={zoomFeatures}
                         />
                     </div>
                 );

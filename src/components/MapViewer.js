@@ -54,7 +54,7 @@ function MapViewer( { id, className, mapSetup, mapElements, zoomAbility } ) {
     );
 }
 
-function getMapSetup( { width, height, geojson } ) {
+function getMapSetup( { width, height, geojson, zoomFeatures } ) {
 
     return () => {
         // const projection = d3.geoEquirectangular()
@@ -64,13 +64,20 @@ function getMapSetup( { width, height, geojson } ) {
         
         // Create a path generator.
         const pathGenerator = d3.geoPath().projection( projection );
-        
+
+        const allFeatures = geojson.features;
+        if ( zoomFeatures && zoomFeatures.length > 0 ) {
+            geojson.features = zoomFeatures;
+        }
+
         // Get the bounds of the geojson data and compute scale and translate.
         // based on https://stackoverflow.com/questions/14492284/center-a-map-in-d3-given-a-geojson-object
         const [ [ left, top ],[ right, bottom ]] = pathGenerator.bounds( geojson );
         const scale = .98 / Math.max( ( right - left ) / width, ( bottom - top ) / height );
         const translate = [ ( width - scale * ( right + left ) ) / 2, ( height - scale * ( bottom + top ) ) / 2 ];
-        
+
+        geojson.features = allFeatures;
+
         // Update projection with computed scale and translate.
         projection
             .scale( scale )
